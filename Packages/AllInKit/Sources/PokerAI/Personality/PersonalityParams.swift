@@ -99,14 +99,16 @@ public struct PersonalityParams: Codable, Sendable, Hashable {
   /// Fields a `variation` may name: scalar parameters with their valid range.
   private typealias Field = (name: String, path: WritableKeyPath<PersonalityParams, Double>, range: ClosedRange<Double>)
 
-  private static var scalarFields: [Field] { [
-    ("vpip", \.vpip, 0...1), ("pfrRatio", \.pfrRatio, 0...1), ("threeBet", \.threeBet, 0...1),
-    ("foldTo3Bet", \.foldTo3Bet, 0...1), ("positionAwareness", \.positionAwareness, 0...1),
-    ("cbet", \.cbet, 0...1), ("barrel", \.barrel, 0...1), ("bluffFreq", \.bluffFreq, 0...1),
-    ("valueThreshold", \.valueThreshold, 0.05...1), ("continueThreshold", \.continueThreshold, 0.05...3),
-    ("stickiness", \.stickiness, 0...1), ("slowplay", \.slowplay, 0...1), ("readSkill", \.readSkill, 0...1),
-    ("randomness", \.randomness, 0...1), ("shapeNoise", \.shapeNoise, 0...1),
-  ] }
+  private static var scalarFields: [Field] {
+    [
+      ("vpip", \.vpip, 0...1), ("pfrRatio", \.pfrRatio, 0...1), ("threeBet", \.threeBet, 0...1),
+      ("foldTo3Bet", \.foldTo3Bet, 0...1), ("positionAwareness", \.positionAwareness, 0...1),
+      ("cbet", \.cbet, 0...1), ("barrel", \.barrel, 0...1), ("bluffFreq", \.bluffFreq, 0...1),
+      ("valueThreshold", \.valueThreshold, 0.05...1), ("continueThreshold", \.continueThreshold, 0.05...3),
+      ("stickiness", \.stickiness, 0...1), ("slowplay", \.slowplay, 0...1), ("readSkill", \.readSkill, 0...1),
+      ("randomness", \.randomness, 0...1), ("shapeNoise", \.shapeNoise, 0...1),
+    ]
+  }
 
   /// Names accepted as keys of `varied(by:seed:)` and of a character's `variation`.
   public static var variableFieldNames: Set<String> { Set(scalarFields.map(\.name)) }

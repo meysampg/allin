@@ -139,8 +139,10 @@ import Testing
     for (name, actions) in situations {
       let base = AIScript.context(actions: actions)
       for (id, strategy) in bots {
-        let aces = AIScript.aggression(strategy.distribution(for: AIScript.withHole(base, AITestSupport.cards("As Ah"))))
-        let trash = AIScript.aggression(strategy.distribution(for: AIScript.withHole(base, AITestSupport.cards("7s 2h"))))
+        let aces = AIScript.aggression(
+          strategy.distribution(for: AIScript.withHole(base, AITestSupport.cards("As Ah"))))
+        let trash = AIScript.aggression(
+          strategy.distribution(for: AIScript.withHole(base, AITestSupport.cards("7s 2h"))))
         #expect(aces > trash, "\(id) \(name): AA \(aces) vs 72o \(trash)")
       }
     }

@@ -1,6 +1,5 @@
-import Testing
-
 import PokerCore
+import Testing
 
 @testable import PokerHost
 
@@ -151,7 +150,8 @@ import PokerCore
     #expect(throws: HostError.seatOutOfRange(3)) {
       _ = try GameHost(config: config, seats: [ScriptedSeat(id: 3, actions: [])])
     }
-    let host = try GameHost(config: config, seats: [ScriptedSeat(id: 0, actions: []), ScriptedSeat(id: 1, actions: [])])
+    let host = try GameHost(
+      config: config, seats: [ScriptedSeat(id: 0, actions: []), ScriptedSeat(id: 1, actions: [])])
     await #expect(throws: HostError.noSeatFor(2)) {
       _ = try await host.playHand(HostFixture.setup(seats: [0, 1, 2]))
     }

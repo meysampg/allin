@@ -72,7 +72,9 @@ public struct PersonalityStrategy: StrategyProvider {
     }
     for item in policy.items { add(item.action, item.weight / total * (1 - r)) }
     if r > 0 {
-      for entry in UniformRandomStrategy().distribution(for: context).entries { add(entry.action, entry.probability * r) }
+      for entry in UniformRandomStrategy().distribution(for: context).entries {
+        add(entry.action, entry.probability * r)
+      }
     }
     // Dyadic weights summing to exactly 1: the distribution is then bit-identical on every call, whatever the
     // iteration order of the dictionary inside `ActionDistribution`.

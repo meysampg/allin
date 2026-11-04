@@ -1,4 +1,5 @@
 import PokerCore
+import Synchronization
 
 @testable import PokerHost
 
@@ -29,8 +30,6 @@ enum HostFixture {
     log.events.compactMap { if case .actionTaken(let t) = $0.event { t.action } else { nil } }
   }
 }
-
-import Synchronization
 
 /// Collects events from a `@Sendable` callback.
 final class EventBox: Sendable {

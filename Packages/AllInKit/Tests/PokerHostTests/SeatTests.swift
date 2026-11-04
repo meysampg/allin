@@ -1,6 +1,5 @@
-import Testing
-
 import PokerCore
+import Testing
 
 @testable import PokerHost
 
@@ -41,7 +40,8 @@ import PokerCore
 
   @Test func botSeatSleepsForItsThinkTime() async throws {
     let config = HostFixture.config(seats: 2)
-    let step = try HandReducer.start(config: config, button: 0, stacks: HostFixture.stacks([0, 1]), deck: HostFixture.fixedDeck)
+    let step = try HandReducer.start(
+      config: config, button: 0, stacks: HostFixture.stacks([0, 1]), deck: HostFixture.fixedDeck)
     let context = try #require(DecisionContext.make(from: step.state, for: 0))
     let request = DecisionRequest(handID: 1, seq: 5, context: context, deadline: nil)
     let seat = BotSeat(
@@ -58,7 +58,8 @@ import PokerCore
 
   @Test func botSeatDependsOnlyOnSeedHandAndSeq() async throws {
     let config = HostFixture.config(seats: 2)
-    let step = try HandReducer.start(config: config, button: 0, stacks: HostFixture.stacks([0, 1]), deck: HostFixture.fixedDeck)
+    let step = try HandReducer.start(
+      config: config, button: 0, stacks: HostFixture.stacks([0, 1]), deck: HostFixture.fixedDeck)
     let context = try #require(DecisionContext.make(from: step.state, for: 0))
     let seat = RandomSeat(id: 0, seed: 11)
     let request = DecisionRequest(handID: 4, seq: 9, context: context, deadline: nil)
@@ -74,7 +75,8 @@ import PokerCore
 
   @Test func scriptedSeatExhaustionChecksOrFolds() async throws {
     let config = HostFixture.config(seats: 2)
-    let step = try HandReducer.start(config: config, button: 0, stacks: HostFixture.stacks([0, 1]), deck: HostFixture.fixedDeck)
+    let step = try HandReducer.start(
+      config: config, button: 0, stacks: HostFixture.stacks([0, 1]), deck: HostFixture.fixedDeck)
     let facingBlind = try #require(DecisionContext.make(from: step.state, for: 0))
     let seat = ScriptedSeat(id: 0, actions: [.call])
     let request = DecisionRequest(handID: 1, seq: 0, context: facingBlind, deadline: nil)
