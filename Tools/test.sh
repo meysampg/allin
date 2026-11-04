@@ -21,7 +21,7 @@ U
 }
 
 ENGINE_MODULES=(PokerCore PokerEquity PokerHost PokerAI PokerAnalysis Curriculum PokerAbstraction Solver)
-FORBIDDEN='^[[:space:]]*(@_exported[[:space:]]+)?(@preconcurrency[[:space:]]+)?import[[:space:]]+(SwiftUI|AppKit|SpriteKit|SwiftData)\b'
+FORBIDDEN='^[[:space:]]*(@_exported[[:space:]]+)?(@preconcurrency[[:space:]]+)?import[[:space:]]+(SwiftUI|AppKit|SpriteKit|SwiftData|CryptoKit|Combine)\b'
 
 swift_test() { # <label> <args...>
   local label="$1"; shift

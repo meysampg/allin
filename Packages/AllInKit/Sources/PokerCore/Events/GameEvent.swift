@@ -1,5 +1,3 @@
-import CryptoKit
-
 /// Identifies a hand in an archive or a session.
 public struct HandID: Codable, Sendable, Hashable, ExpressibleByIntegerLiteral, CustomStringConvertible {
   public let rawValue: UInt64
@@ -22,7 +20,7 @@ public struct HandStart: Codable, Sendable, Hashable {
 
   /// The commitment for a deck order.
   public static func commitment(for deck: [Card]) -> String {
-    SHA256.hash(data: deck.map(\.index)).map { String(format: "%02x", $0) }.joined()
+    SHA256.hex(deck.map(\.index))
   }
 }
 
