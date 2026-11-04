@@ -108,3 +108,20 @@ public struct Card: Sendable, Hashable, Comparable, CustomStringConvertible {
 
   public static func < (a: Card, b: Card) -> Bool { a.index < b.index }
 }
+
+/// A card encodes as its single index (0...51); decoding rejects out-of-range values.
+extension Card: Codable {
+  public init(from decoder: any Decoder) throws {
+    let raw = try decoder.singleValueContainer().decode(Int.self)
+    guard let card = Card(validating: raw) else {
+      throw DecodingError.dataCorrupted(
+        .init(codingPath: decoder.codingPath, debugDescription: "Card index out of range: \(raw)"))
+    }
+    self = card
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var container = encoder.singleValueContainer()
+    try container.encode(Int(index))
+  }
+}
