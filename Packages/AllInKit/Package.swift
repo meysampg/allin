@@ -22,7 +22,8 @@ let package = Package(
   targets: [
     // Engine (portable, no UI frameworks).
     .target(name: "PokerCore"),
-    .target(name: "PokerEquity", dependencies: ["PokerCore"]),
+    // Resources/ holds preflop169.bin (M2.6). Loaded through Bundle.module, which SwiftPM also generates on Linux.
+    .target(name: "PokerEquity", dependencies: ["PokerCore"], resources: [.copy("Resources")]),
     .target(name: "PokerHost", dependencies: ["PokerCore"]),
     .target(name: "PokerAI", dependencies: ["PokerCore", "PokerEquity"]),
     .target(name: "PokerAnalysis", dependencies: ["PokerCore", "PokerEquity", "PokerAI"]),
@@ -41,7 +42,8 @@ let package = Package(
     .testTarget(name: "PokerCoreTests", dependencies: ["PokerCore"]),
     .testTarget(name: "PokerEquityTests", dependencies: ["PokerEquity", "PokerCore"]),
     .testTarget(name: "PokerHostTests", dependencies: ["PokerHost", "PokerCore"]),
-    .testTarget(name: "PokerAITests", dependencies: ["PokerAI", "PokerCore", "PokerEquity"]),
+    // PokerHost only for headless matches in tests; the PokerAI module itself never imports PokerHost.
+    .testTarget(name: "PokerAITests", dependencies: ["PokerAI", "PokerCore", "PokerEquity", "PokerHost"]),
     .testTarget(
       name: "PokerAnalysisTests", dependencies: ["PokerAnalysis", "PokerCore", "PokerAI"]),
     .testTarget(name: "CurriculumTests", dependencies: ["Curriculum", "PokerCore"]),
@@ -50,8 +52,8 @@ let package = Package(
     .testTarget(name: "AllInUIKitTests", dependencies: ["AllInUI", "ThemeKit"]),
     .testTarget(name: "AllInStoreTests", dependencies: ["AllInStore", "Curriculum"]),
     // Filtered by name from Tools/test.sh: unit skips Heavy and Sim.
-    .testTarget(name: "HeavyTests", dependencies: ["PokerCore"]),
-    .testTarget(name: "SimTests", dependencies: ["PokerHost", "PokerAI", "PokerCore"]),
+    .testTarget(name: "HeavyTests", dependencies: ["PokerCore", "PokerEquity"]),
+    .testTarget(name: "SimTests", dependencies: ["PokerHost", "PokerAI", "PokerCore", "PokerEquity"]),
     .testTarget(name: "ContentTests", dependencies: ["Curriculum"]),
   ]
 )
