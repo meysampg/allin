@@ -43,3 +43,11 @@ The engine modules (PokerCore, PokerEquity, PokerHost, PokerAI, PokerAnalysis, C
 - Grades come from EV, and luck is reported separately.
 - Every bot exposes its strategy as a probability distribution (white box).
 - Offline only: sandbox on, no network entitlement.
+
+## Where the code differs from PLAN.md (M2)
+
+- `StrategyProvider.distribution(for:)` takes only a `DecisionContext`; the hole cards are `context.holeCards` (no `hand:` parameter).
+- Exact flop hand-vs-range equity takes about 20–60 ms, not 5 ms, so live callers use Monte Carlo.
+- `preflop169.bin` is about 376 KB (47,008 entries), not 120 KB.
+- There is no `RangeTracker` yet. Bots read the hero through `PerceivedRange` (PokerEquity) with `readSkill` blur. M4 adds a batched Bayesian tracker.
+- `allin-tool sim` and the Sim gates use heads-up duplicate deals for win rates and 6-max (personality + 5 Oryn) for style stats.
