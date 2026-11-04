@@ -54,10 +54,10 @@ level_lint() {
   for d in Packages AllIn AllInAppUITests; do [ -d "$d" ] && dirs+=("$d"); done
   if [ ${#dirs[@]} -eq 0 ]; then
     skip "lint: nothing to format-lint (no Packages/ or AllIn/)"
-  elif ! find "${dirs[@]}" -name '*.swift' -not -path '*/.build/*' | grep -q .; then
+  elif ! find "${dirs[@]}" -name '*.swift' -not -path '*/.build*/*' | grep -q .; then
     skip "lint: no Swift files yet"
   else
-    find "${dirs[@]}" -name '*.swift' -not -path '*/.build/*' -print0 \
+    find "${dirs[@]}" -name '*.swift' -not -path '*/.build*/*' -print0 \
       | xargs -0 swift format lint --configuration .swift-format --strict
   fi
 
