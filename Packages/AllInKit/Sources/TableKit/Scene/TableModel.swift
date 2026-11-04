@@ -132,7 +132,14 @@ public struct TableModel: Sendable {
   }
 
   private mutating func streetDealt(_ street: Street, cards: [Card]) -> [TableCue] {
-    let cues = dealIfNeeded()
+    var cues = dealIfNeeded()
+    // The engine only reports the pots at the end of the hand, so a new street is what sweeps the bets: every
+    // seat's stack goes to the pot, folded or not.
+    if snapshot.seats.contains(where: { $0.committed > 0 }) { cues.append(.collectBets) }
+    for index in snapshot.seats.indices {
+      snapshot.seats[index].committed = 0
+      if snapshot.seats[index].status != .folded { snapshot.seats[index].lastAction = nil }
+    }
     snapshot.board += cards
     snapshot.street = street
     return cues + [.dealBoard(street, cards)]

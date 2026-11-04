@@ -12,6 +12,16 @@ struct MainMenuView: View {
       MenuBackgroundView()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .clipped()
+      // A soft dark scrim keeps the drifting cards and coins from washing out the title and the buttons.
+      LinearGradient(
+        stops: [
+          .init(color: theme.night.opacity(0.88), location: 0), .init(color: theme.night.opacity(0.78), location: 0.6),
+          .init(color: theme.night.opacity(0), location: 1),
+        ], startPoint: .leading, endPoint: .trailing
+      )
+      .frame(width: 520)
+      .frame(maxHeight: .infinity)
+      .allowsHitTesting(false)
       titleBlock
         .padding(.leading, 60).padding(.top, 70)
       buttonColumn
@@ -41,7 +51,7 @@ struct MainMenuView: View {
         .accessibilityIdentifier("menu.title")
       Text("Learn to think in poker.")
         .font(theme.bodyFont(size: 15))
-        .foregroundStyle(theme.mute)
+        .foregroundStyle(theme.parchment.opacity(0.9))
         .accessibilityIdentifier("menu.subtitle")
     }
   }

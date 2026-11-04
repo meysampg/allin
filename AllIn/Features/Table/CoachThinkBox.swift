@@ -14,7 +14,7 @@ struct CoachThinkBox: View {
         question(3, "What does each of your moves achieve?")
       }
       HStack(spacing: 6) {
-        Button("Show her range") {}
+        Button("Show their range") {}
           .buttonStyle(.fantasy(.small))
           .disabled(true)
           .accessibilityIdentifier("table.coachBox.showRange")

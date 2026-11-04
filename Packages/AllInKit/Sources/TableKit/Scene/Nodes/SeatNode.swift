@@ -24,8 +24,7 @@ import ThemeKit
   init(info: TableSeatInfo, betOffset: CGPoint, resolver: ThemeResolver) {
     seatIndex = info.seat
     isHero = info.isHero
-    // The hero's cards sit above the medallion, so the bet rests a little further out.
-    self.betOffset = info.isHero ? CGPoint(x: betOffset.x, y: betOffset.y + 24) : betOffset
+    self.betOffset = betOffset
     medallion = MedallionNode(info: info, resolver: resolver)
     box = SKSpriteNode(texture: Self.boxTexture(resolver: resolver), size: Self.boxSize)
     let gold = resolver.palette[.gold]

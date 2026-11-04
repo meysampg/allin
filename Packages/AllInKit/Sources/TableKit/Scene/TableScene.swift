@@ -450,7 +450,7 @@ import ThemeKit
 
     shoe.texture = cardCache.backTexture()
     shoe.size = CGSize(width: 34, height: 48)
-    shoe.position = worldPoint(CGPoint(x: 0.5, y: 0.035))
+    shoe.position = worldPoint(SeatLayout.shoePoint)
     shoe.zPosition = 3
     world.addChild(shoe)
 
