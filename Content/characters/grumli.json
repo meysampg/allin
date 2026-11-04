@@ -14,7 +14,7 @@
     "barrel": 0.15,
     "bluffFreq": 0.03,
     "valueThreshold": 0.7,
-    "continueThreshold": 0.8,
+    "continueThreshold": 1.2,
     "stickiness": 0.9,
     "slowplay": 0.3,
     "readSkill": 0.1,

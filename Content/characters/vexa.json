@@ -9,7 +9,7 @@
     "pfrRatio": 0.75,
     "threeBet": 0.04,
     "foldTo3Bet": 0.55,
-    "positionAwareness": 0.6,
+    "positionAwareness": 0.5,
     "cbet": 0.6,
     "barrel": 0.3,
     "bluffFreq": 0.05,
@@ -18,7 +18,7 @@
     "stickiness": 0.1,
     "slowplay": 0.1,
     "readSkill": 0.6,
-    "randomness": 0.05,
+    "randomness": 0.0,
     "shapeNoise": 0.03,
     "sizing": {
       "openRaiseBB": 3.0,
