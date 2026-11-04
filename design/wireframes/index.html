@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All-In Wireframes</title>
+<style>
+  :root {
+    --bg: #eceae4; --ink: #2b2b2b; --mute: #8a8780; --line: #4a4a4a;
+    --paper: #fbfaf7; --box: #e3e0d8; --felt: #d6dccf; --accent: #2f6fdb;
+    --note: #fff3a8; --good: #2e8b57; --bad: #c0392b;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.4 ui-rounded, "SF Pro Rounded", -apple-system, system-ui, sans-serif; }
+  header { padding: 16px 20px 8px; }
+  header h1 { margin: 0; font-size: 20px; }
+  header p { margin: 4px 0 0; color: var(--mute); max-width: 900px; }
+  nav { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 20px 12px; position: sticky; top: 0; background: var(--bg); z-index: 5; }
+  nav button { border: 1.5px solid var(--line); background: var(--paper); border-radius: 999px; padding: 4px 10px; font: inherit; font-size: 12px; cursor: pointer; }
+  nav button.on { background: var(--ink); color: var(--paper); }
+  main { padding: 0 20px 40px; display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
+
+  /* Mac window */
+  .stage { flex: 1 1 640px; min-width: 0; max-width: 1120px; }
+  .win { width: 1120px; height: 700px; transform-origin: 0 0; background: var(--paper); border: 2px solid var(--line); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 4px 4px 0 rgba(0,0,0,.12); }
+  .bar { height: 28px; border-bottom: 1.5px solid var(--line); display: flex; align-items: center; gap: 6px; padding: 0 10px; font-size: 12px; color: var(--mute); }
+  .bar i { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--line); display: inline-block; }
+  .bar span { margin-left: 8px; }
+  .screen { display: none; flex: 1; position: relative; overflow: hidden; }
+  .screen.on { display: block; }
+  aside.notes { width: 300px; flex: 1 1 260px; max-width: 420px; }
+  aside.notes .n { background: var(--note); border: 1.5px solid var(--line); border-radius: 6px; padding: 10px 12px; margin-bottom: 10px; font-size: 13px; }
+  aside.notes h3 { margin: 0 0 6px; font-size: 14px; }
+  aside.notes ul { margin: 0; padding-left: 18px; }
+
+  /* primitives */
+  .abs { position: absolute; }
+  .box { border: 1.5px solid var(--line); border-radius: 10px; background: var(--paper); padding: 10px; }
+  .fill { background: var(--box); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; border: 2px solid var(--line); border-radius: 12px; background: var(--paper); padding: 8px 14px; font-weight: 600; cursor: pointer; user-select: none; }
+  .btn.pri { background: var(--ink); color: var(--paper); }
+  .btn.sm { padding: 4px 10px; font-size: 12px; border-radius: 8px; }
+  .btn:hover { outline: 3px solid var(--accent); }
+  .go { cursor: pointer; }
+  .go:hover { outline: 3px solid var(--accent); }
+  .tag { display: inline-block; border: 1.5px solid var(--line); border-radius: 999px; padding: 1px 8px; font-size: 11px; background: var(--paper); }
+  .ph { border: 1.5px dashed var(--line); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--mute); font-size: 12px; text-align: center; }
+  .mute { color: var(--mute); }
+  .h { font-weight: 700; font-size: 18px; }
+  .hh { font-weight: 800; font-size: 28px; }
+  .row { display: flex; gap: 10px; align-items: center; }
+  .col { display: flex; flex-direction: column; gap: 8px; }
+  .anno { position: absolute; background: var(--note); border: 1.5px solid var(--line); border-radius: 6px; padding: 4px 8px; font-size: 11px; max-width: 200px; z-index: 3; box-shadow: 2px 2px 0 rgba(0,0,0,.15); }
+  .card { width: 44px; height: 62px; border: 2px solid var(--line); border-radius: 6px; background: #fff; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; }
+  .card.r { color: var(--bad); }
+  .card.back { background: repeating-linear-gradient(45deg, var(--box), var(--box) 4px, var(--paper) 4px, var(--paper) 8px); }
+  .card.empty { border-style: dashed; background: transparent; }
+  .card.s { width: 30px; height: 42px; font-size: 12px; }
+  .avatar { width: 54px; height: 54px; border-radius: 50%; border: 2px solid var(--line); background: var(--box); display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--mute); }
+  .bar-meter { height: 10px; border: 1.5px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--paper); }
+  .bar-meter b { display: block; height: 100%; background: var(--ink); }
+
+  /* table */
+  .felt { position: absolute; left: 14%; right: 14%; top: 13%; height: 52%; border: 3px solid var(--line); border-radius: 999px; background: var(--felt); }
+  .seat { position: absolute; transform: translate(-50%, -50%); text-align: center; font-size: 11px; }
+  .seat .box { padding: 4px 8px; margin-top: 4px; }
+  .actbar { position: absolute; left: 0; right: 0; bottom: 0; height: 78px; border-top: 1.5px solid var(--line); background: var(--paper); display: flex; align-items: center; gap: 10px; padding: 0 16px; }
+  .slider { flex: 1; height: 8px; border: 1.5px solid var(--line); border-radius: 6px; position: relative; }
+  .slider::after { content: ""; position: absolute; left: 40%; top: -7px; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line); background: var(--paper); }
+
+  /* map */
+  .venue { position: absolute; width: 170px; text-align: center; }
+  .venue .ph { height: 110px; }
+  svg.path { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+  /* grid */
+  .grid13 { display: grid; grid-template-columns: repeat(13, 1fr); gap: 2px; }
+  .grid13 div { aspect-ratio: 1; border: 1px solid var(--line); font-size: 8px; display: flex; align-items: center; justify-content: center; }
+  .grid13 .in { background: var(--ink); color: var(--paper); }
+  .grid13 .mx { background: var(--mute); color: var(--paper); }
+
+  @media (max-width: 700px) { header, nav, main { padding-left: 16px; padding-right: 16px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>All-In: UI wireframes v1</h1>
+  <p>A low-fidelity, clickable wireframe of the whole app. Use the chips to jump to any screen, or click the outlined buttons and areas to follow the flow. Yellow notes describe behavior and animation. The final art style is "stylized premium" (soft, rounded, playful), shown here in grayscale.</p>
+</header>
+<nav id="nav"></nav>
+<main>
+  <div class="stage" id="stage">
+  <div class="win" id="win">
+    <div class="bar"><i></i><i></i><i></i><span id="wtitle">All-In</span></div>
+
+    <!-- 1 MAIN MENU -->
+    <section class="screen" id="menu" data-title="Main menu">
+      <div class="ph abs" style="inset:0;border:none;border-radius:0;background:var(--felt)">animated background: slow-drifting cards &amp; chips, soft parallax</div>
+      <div class="abs" style="left:60px;top:70px">
+        <div class="hh" style="font-size:54px">ALL-IN</div>
+        <div class="mute">Learn to think in poker.</div>
+      </div>
+      <div class="abs col" style="left:60px;top:220px;width:300px">
+        <div class="btn pri go" data-go="map" style="justify-content:space-between">▶ Continue Career <span class="tag">Club · 3/8</span></div>
+        <div class="btn go" data-go="lobby">Quick Play</div>
+        <div class="btn go" data-go="gym">Training Gym</div>
+        <div class="btn go" data-go="rivals">Rivals</div>
+        <div class="btn go" data-go="profile">My Game (stats)</div>
+        <div class="btn go" data-go="settings">Settings</div>
+      </div>
+      <div class="abs box" style="right:60px;top:220px;width:330px">
+        <div class="h">Today</div>
+        <div class="col" style="margin-top:8px">
+          <div class="row"><span class="tag">5 min</span> Warm-up: 10 spots from your weakest skill (Pot odds)</div>
+          <div class="row"><span class="tag">Next</span> Lesson: "Why position is power"</div>
+          <div class="row"><span class="tag">Streak</span> 🔥 4 days</div>
+        </div>
+        <div class="btn sm go" data-go="gym" style="margin-top:10px">Start warm-up</div>
+      </div>
+      <div class="abs row" style="right:60px;top:70px">
+        <div class="avatar">you</div>
+        <div><b>Meysam</b><br><span class="mute">Rank: Club Regular · 12,400 chips</span></div>
+      </div>
+      <div class="anno" style="left:380px;top:230px">The primary button always points at the next thing to do. There is no menu-hunting.</div>
+    </section>
+
+    <!-- 2 JOURNEY MAP -->
+    <section class="screen" id="map" data-title="Career map">
+      <div class="abs row" style="left:16px;top:12px"><div class="btn sm go" data-go="menu">← Menu</div><b>Career</b></div>
+      <div class="abs row" style="right:16px;top:12px"><span class="tag">Chips 12,400</span><span class="tag">Venue 2 of 4</span></div>
+      <svg class="path" viewBox="0 0 1120 672" preserveAspectRatio="none"><path d="M150 420 C 300 300, 380 520, 470 380 S 700 250, 780 330 S 950 200, 990 230" fill="none" stroke="#4a4a4a" stroke-width="3" stroke-dasharray="10 8"/></svg>
+      <div class="venue go" data-go="venue" style="left:70px;top:330px"><div class="ph">🏠 illustrated house</div><b>Kitchen Table</b><br><span class="tag">✓ cleared · ★★★</span></div>
+      <div class="venue go" data-go="venue" style="left:390px;top:290px;outline:3px solid var(--ink);border-radius:10px"><div class="ph">🍺 pub interior, lights on</div><b>The Club</b><br><span class="tag">● 3 / 8 nodes</span></div>
+      <div class="venue" style="left:700px;top:240px;opacity:.5"><div class="ph">🎰 casino, locked</div><b>The Casino</b><br><span class="tag">🔒 beat Club boss</span></div>
+      <div class="venue" style="left:910px;top:130px;opacity:.5"><div class="ph">👑 penthouse</div><b>High Roller</b><br><span class="tag">🔒</span></div>
+      <div class="abs box" style="left:16px;bottom:16px;width:520px">
+        <b>What each venue teaches</b>
+        <div class="mute" style="font-size:12px;margin-top:4px">
+          🏠 rules, hand ranks, betting rounds, reading the board ·
+          🍺 position, starting hands, pot odds, outs, basic c-bets ·
+          🎰 ranges, equity, bet sizing, multi-street plans, player types, tournaments &amp; ICM ·
+          👑 balance vs exploit, bluff ratios, deep stacks, final tables, mental game
+        </div>
+      </div>
+      <div class="anno" style="left:560px;top:430px">Your token walks along the path when a venue is cleared, the next venue "lights up", and confetti and chips fly.</div>
+    </section>
+
+    <!-- 3 VENUE -->
+    <section class="screen" id="venue" data-title="Venue chapter">
+      <div class="abs row" style="left:16px;top:12px"><div class="btn sm go" data-go="map">← Map</div><b>The Club</b><span class="mute">Chapter 2: playing in position</span></div>
+      <div class="abs ph" style="left:16px;top:52px;right:16px;height:110px">venue banner illustration + host character waving ("Welcome back, kid.")</div>
+      <div class="abs" style="left:40px;top:190px;right:360px">
+        <div class="col" style="gap:14px">
+          <div class="row"><span class="tag">✓</span><div class="box" style="flex:1">📘 Lesson · Seats have names (UTG → BTN)</div><span>★★★</span></div>
+          <div class="row"><span class="tag">✓</span><div class="box" style="flex:1">📘 Lesson · Why acting last is power</div><span>★★☆</span></div>
+          <div class="row"><span class="tag">✓</span><div class="box" style="flex:1">🎯 Drill · Open or fold? (by seat)</div><span>★★★</span></div>
+          <div class="row"><span class="tag">●</span><div class="box go" data-go="lesson" style="flex:1;border-width:3px">📘 Lesson · Pot odds: is the call worth it?</div><div class="btn sm pri go" data-go="lesson">Play</div></div>
+          <div class="row" style="opacity:.55"><span class="tag">🔒</span><div class="box" style="flex:1">🎯 Drill · Counting outs fast</div></div>
+          <div class="row" style="opacity:.55"><span class="tag">🔒</span><div class="box" style="flex:1">🃏 Table session · 6-max vs club regulars</div></div>
+          <div class="row go" data-go="boss" style="opacity:.55"><span class="tag">🔒</span><div class="box" style="flex:1">👊 Boss · "Calling-Station Carl"</div></div>
+        </div>
+      </div>
+      <div class="abs box" style="right:16px;top:190px;width:320px">
+        <b>Chapter skills</b>
+        <div class="col" style="margin-top:8px;font-size:12px">
+          Position <div class="bar-meter"><b style="width:80%"></b></div>
+          Starting hands <div class="bar-meter"><b style="width:60%"></b></div>
+          Pot odds <div class="bar-meter"><b style="width:20%"></b></div>
+          Outs <div class="bar-meter"><b style="width:0%"></b></div>
+        </div>
+        <div class="mute" style="font-size:12px;margin-top:8px">The meters fill from how well you decide in drills and play, not from how many lessons you finish.</div>
+      </div>
+      <div class="anno" style="left:520px;top:500px">Node types: Lesson (learn by doing), Drill (fast reps), Table session (real play with coach), Boss (the test).</div>
+    </section>
+
+    <!-- 4 LESSON PUZZLE -->
+    <section class="screen" id="lesson" data-title="Lesson: puzzle spot">
+      <div class="abs row" style="left:16px;top:12px;right:16px;justify-content:space-between">
+        <div class="row"><div class="btn sm go" data-go="venue">✕</div><b>Pot odds: is the call worth it?</b></div>
+        <div class="row"><span class="tag">Step 2 / 5</span><div class="bar-meter" style="width:160px"><b style="width:40%"></b></div></div>
+      </div>
+      <div class="felt" style="top:12%"></div>
+      <div class="seat" style="left:50%;top:14%"><div class="avatar" style="margin:auto">Rita</div><div class="box">Rita · bets 50</div></div>
+      <div class="abs row" style="left:50%;top:32%;transform:translateX(-50%)">
+        <div class="card">K<small>♠</small></div><div class="card r">9<small>♥</small></div><div class="card r">4<small>♥</small></div><div class="card empty"></div><div class="card empty"></div>
+      </div>
+      <div class="abs" style="left:50%;top:48%;transform:translateX(-50%)"><span class="tag">POT 150 (+50)</span></div>
+      <div class="seat" style="left:50%;top:66%"><div class="row" style="justify-content:center"><div class="card r">A<small>♥</small></div><div class="card r">7<small>♥</small></div></div><div class="box">You</div></div>
+      <div class="abs box" style="left:16px;top:60px;width:240px">
+        <b>🧑‍🏫 Coach</b>
+        <div style="margin-top:6px">You have a flush draw. Rita bets 50 into 100. You need to put in 50 to win 200.<br><br><b>Is this call worth it?</b></div>
+      </div>
+      <div class="actbar">
+        <div class="mute">Your decision:</div>
+        <div class="btn">Fold</div>
+        <div class="btn pri go" data-go="sandbox">Call 50</div>
+        <div class="btn">Raise</div>
+        <div style="flex:1"></div>
+        <div class="btn sm">💡 Hint (−1★)</div>
+      </div>
+      <div class="anno" style="right:16px;top:80px">The spot is real and playable. You decide first and are taught after, so the lesson never starts as a wall of text.</div>
+    </section>
+
+    <!-- 5 SANDBOX / EXPLAIN -->
+    <section class="screen" id="sandbox" data-title="Lesson: why + sandbox">
+      <div class="abs row" style="left:16px;top:12px;right:16px;justify-content:space-between">
+        <div class="row"><div class="btn sm go" data-go="lesson">←</div><b>Why calling works here</b></div>
+        <span class="tag">Step 3 / 5</span>
+      </div>
+      <div class="abs box" style="left:16px;top:52px;width:520px;bottom:16px">
+        <div class="row"><span class="tag" style="background:var(--good);color:#fff">✓ Good call</span><span class="mute">+1.8 big blinds on average</span></div>
+        <div class="ph" style="height:170px;margin-top:10px">ANIMATION: the pot splits into 4 slices; your 50 fills 1 slice → "you pay 1 part to win 4, so you need to win more than 1 in 5 times (20%)"</div>
+        <div class="ph" style="height:150px;margin-top:10px">ANIMATION: 9 heart cards light up in the deck → "9 outs × ~2% per card ≈ 18–19% next card, ~35% by the river"</div>
+        <div style="margin-top:10px"><b>The thinking, not the rule:</b> compare <i>what you pay</i> to <i>what you can win</i>, then ask <i>how often you win</i>. You'll use this exact question in every spot from here on.</div>
+      </div>
+      <div class="abs box" style="right:16px;top:52px;width:540px;bottom:16px">
+        <b>🧪 Sandbox: break it yourself</b>
+        <div class="row" style="margin-top:10px"><span class="mute" style="width:110px">Your cards</span><div class="card s r">A♥</div><div class="card s r">7♥</div><span class="tag">drag to change</span></div>
+        <div class="row" style="margin-top:8px"><span class="mute" style="width:110px">Board</span><div class="card s">K♠</div><div class="card s r">9♥</div><div class="card s r">4♥</div><div class="card s empty"></div><div class="card s empty"></div></div>
+        <div class="row" style="margin-top:12px"><span class="mute" style="width:110px">Rita's bet</span><div class="slider"></div><span>50</span></div>
+        <div class="col" style="margin-top:16px">
+          <div class="row"><span style="width:130px">Price you need</span><div class="bar-meter" style="flex:1"><b style="width:20%"></b></div><span>20%</span></div>
+          <div class="row"><span style="width:130px">Your chance</span><div class="bar-meter" style="flex:1"><b style="width:35%"></b></div><span>35%</span></div>
+        </div>
+        <div class="box fill" style="margin-top:16px">Try making Rita bet the whole pot. Watch the "price" bar pass your chance. When does folding become right?</div>
+        <div class="row" style="position:absolute;bottom:12px;right:12px"><div class="btn pri go" data-go="venue">Next: try 3 spots on your own →</div></div>
+      </div>
+      <div class="anno" style="left:30px;bottom:30px">You build the intuition by changing inputs and watching the bars move. There is nothing to memorize.</div>
+    </section>
+
+    <!-- 6 TABLE -->
+    <section class="screen" id="table" data-title="Play table (6-max)">
+      <div class="abs row" style="left:12px;top:10px"><div class="btn sm go" data-go="menu">☰</div><span class="tag">Cash 6-max · 1/2</span><span class="tag">Hand #23</span></div>
+      <div class="abs row" style="right:12px;top:10px"><span class="tag">🧑‍🏫 Coach: ON</span><span class="tag">HUD: basic</span><div class="btn sm go" data-go="review">Last hand ↺</div></div>
+      <div class="felt"></div>
+      <div class="seat" style="left:30%;top:14%"><div class="avatar" style="margin:auto">Carl</div><div class="box">Carl · 212<br><span class="mute">calls a lot</span></div></div>
+      <div class="seat" style="left:70%;top:14%"><div class="avatar" style="margin:auto">Mia</div><div class="box">Mia · 340 · <b>bet 30</b></div></div>
+      <div class="seat" style="left:88%;top:40%"><div class="avatar" style="margin:auto;opacity:.5">Rita</div><div class="box mute">Rita · folded</div></div>
+      <div class="seat" style="left:12%;top:40%"><div class="avatar" style="margin:auto;opacity:.5">Ben</div><div class="box mute">Ben · folded</div></div>
+      <div class="seat" style="left:75%;top:66%"><div class="avatar" style="margin:auto">Pro</div><div class="box">"The Prof" · 198</div></div>
+      <div class="abs row" style="left:50%;top:30%;transform:translateX(-50%)"><div class="card">Q<small>♣</small></div><div class="card r">J<small>♦</small></div><div class="card">5<small>♠</small></div><div class="card empty"></div><div class="card empty"></div></div>
+      <div class="abs" style="left:50%;top:45%;transform:translateX(-50%)"><span class="tag">POT 75</span> <span class="tag">D</span></div>
+      <div class="seat" style="left:45%;top:70%"><div class="row" style="justify-content:center"><div class="card">Q<small>♠</small></div><div class="card r">T<small>♥</small></div></div><div class="box">You · BTN · 186</div></div>
+      <div class="abs box" style="left:12px;top:56%;width:250px">
+        <b>🧑‍🏫 Think first</b>
+        <ol style="margin:6px 0 0;padding-left:18px;font-size:12px">
+          <li>What hands does Mia bet here?</li>
+          <li>How does Q-T do against those?</li>
+          <li>What does each of your moves achieve?</li>
+        </ol>
+        <div class="row" style="margin-top:6px"><div class="btn sm">Show her range</div><div class="btn sm">I'm fine</div></div>
+      </div>
+      <div class="actbar">
+        <div class="btn">Fold</div><div class="btn pri">Call 30</div><div class="btn">Raise to 90</div>
+        <div class="row" style="gap:4px"><span class="btn sm">⅓</span><span class="btn sm">½</span><span class="btn sm">⅔</span><span class="btn sm">Pot</span><span class="btn sm">All-in</span></div>
+        <div class="slider"></div>
+        <span class="tag">⏱ no timer</span>
+      </div>
+      <div class="anno" style="right:16px;top:44px">Animation: cards deal with a flick, chips slide and stack, bots show "thinking" body language, and the winning hand's cards glow and lift.</div>
+      <div class="anno" style="left:12px;top:40%">The coach asks the same three questions every time, so that thinking process becomes a habit. The questions fade out as your skill meters rise.</div>
+    </section>
+
+    <!-- 7 HAND REVIEW -->
+    <section class="screen" id="review" data-title="Hand review">
+      <div class="abs row" style="left:16px;top:12px"><div class="btn sm go" data-go="table">← Back to table</div><b>Hand #22 review</b><span class="tag">You won 140 · decisions: 3 good, 1 leak</span></div>
+      <div class="abs box" style="left:16px;top:52px;right:16px;height:90px">
+        <div class="row" style="justify-content:space-between">
+          <div class="col"><b>Preflop</b><span class="tag" style="background:var(--good);color:#fff">✓ open BTN</span></div>
+          <div class="col"><b>Flop</b><span class="tag" style="background:var(--good);color:#fff">✓ c-bet ⅓</span></div>
+          <div class="col go" data-go="review" style="outline:3px solid var(--ink);border-radius:8px;padding:2px"><b>Turn</b><span class="tag" style="background:var(--bad);color:#fff">✗ check (−3.1bb)</span></div>
+          <div class="col"><b>River</b><span class="tag" style="background:var(--good);color:#fff">✓ value bet</span></div>
+          <div class="row"><div class="btn sm">⏮</div><div class="btn sm">▶ replay</div><div class="btn sm">⏭</div></div>
+        </div>
+      </div>
+      <div class="abs ph" style="left:16px;top:160px;width:520px;bottom:16px">mini table replaying the turn: board, pot and your cards, with Carl's hidden cards revealed</div>
+      <div class="abs box" style="right:16px;top:160px;width:540px;bottom:16px">
+        <b>Turn: you checked. Better: bet ~⅔ pot.</b>
+        <div style="margin-top:8px">Carl is a calling station. He calls with any pair. Your top pair beats most of what he calls with, so betting earns more.</div>
+        <div class="ph" style="height:120px;margin-top:10px">bar chart: average result of check / bet ⅓ / bet ⅔ / bet pot against Carl's range</div>
+        <div class="row" style="margin-top:12px"><div class="btn sm">Replay this spot</div><div class="btn sm">Add to my Gym</div><div class="btn sm go" data-go="rivals">Notes on Carl</div></div>
+        <div class="mute" style="font-size:12px;margin-top:10px">Judged by decision quality, not by results. You can make the right play and still lose the pot.</div>
+      </div>
+    </section>
+
+    <!-- 8 BOSS INTRO -->
+    <section class="screen" id="boss" data-title="Boss intro">
+      <div class="ph abs" style="inset:0;border:none;border-radius:0;background:var(--box)">dim venue lights, spotlight on the boss</div>
+      <div class="abs" style="left:80px;top:80px;width:300px">
+        <div class="ph" style="height:340px">full-body character art<br>idle animation (shuffling chips)</div>
+      </div>
+      <div class="abs" style="left:420px;top:90px;right:80px">
+        <div class="mute">THE CLUB · BOSS</div>
+        <div class="hh">Calling-Station Carl</div>
+        <div style="margin-top:6px">"I never fold. Ever. You'll have to beat me with real hands."</div>
+        <div class="box" style="margin-top:16px">
+          <b>To clear the Club</b>
+          <ul style="margin:6px 0 0;padding-left:18px">
+            <li>Heads-up session, 40 hands, no coach</li>
+            <li>Decision score ≥ 70 (judged on your choices, not on luck)</li>
+            <li>Then pass 12 fresh exam spots on position, pot odds and outs</li>
+          </ul>
+        </div>
+        <div class="row" style="margin-top:16px"><div class="btn pri go" data-go="exam">Take the seat</div><div class="btn go" data-go="venue">Not yet</div></div>
+      </div>
+      <div class="anno" style="right:30px;bottom:30px">Each boss's style is the venue's lesson. To beat Carl you have to value-bet and stop bluffing.</div>
+    </section>
+
+    <!-- 9 EXAM RESULT -->
+    <section class="screen" id="exam" data-title="Venue result">
+      <div class="abs" style="left:50%;top:40px;transform:translateX(-50%);text-align:center">
+        <div class="hh">Club cleared!</div>
+        <div class="mute">Carl tips his hat. 🎩</div>
+        <div style="font-size:30px;margin-top:6px">★ ★ ☆</div>
+      </div>
+      <div class="abs box" style="left:120px;top:190px;width:400px">
+        <b>Boss session</b>
+        <div class="row" style="margin-top:6px;justify-content:space-between"><span>Decision score</span><b>78</b></div>
+        <div class="row" style="justify-content:space-between"><span>Chips</span><b>+420</b> <span class="mute">(luck: −60)</span></div>
+        <div class="row" style="justify-content:space-between"><span>Value bets missed</span><b>2</b></div>
+      </div>
+      <div class="abs box" style="right:120px;top:190px;width:400px">
+        <b>Exam spots: 10 / 12</b>
+        <div class="col" style="margin-top:6px;font-size:12px">
+          Position <div class="bar-meter"><b style="width:100%"></b></div>
+          Pot odds <div class="bar-meter"><b style="width:85%"></b></div>
+          Outs <div class="bar-meter"><b style="width:65%"></b></div>
+        </div>
+      </div>
+      <div class="abs ph" style="left:120px;right:120px;top:370px;height:110px">celebration: chips rain, a new venue stamp is added to your passport, and a reward appears (table felt, card back)</div>
+      <div class="abs row" style="left:50%;bottom:40px;transform:translateX(-50%)"><div class="btn go" data-go="review">Review boss hands</div><div class="btn pri go" data-go="map">To the Casino →</div></div>
+    </section>
+
+    <!-- 10 QUICK PLAY LOBBY -->
+    <section class="screen" id="lobby" data-title="Quick Play lobby">
+      <div class="abs row" style="left:16px;top:12px"><div class="btn sm go" data-go="menu">← Menu</div><b>Quick Play</b></div>
+      <div class="abs row" style="left:16px;top:56px;right:16px;gap:14px">
+        <div class="box go" data-go="table" style="flex:1;border-width:3px"><div class="ph" style="height:90px">6 seats</div><b>Cash 6-max</b><div class="mute">most popular</div></div>
+        <div class="box go" data-go="table" style="flex:1"><div class="ph" style="height:90px">9 seats</div><b>Full Ring</b><div class="mute">tighter, slower</div></div>
+        <div class="box go" data-go="table" style="flex:1"><div class="ph" style="height:90px">1 vs 1</div><b>Heads-Up</b><div class="mute">duel a rival</div></div>
+        <div class="box go" data-go="tourney" style="flex:1"><div class="ph" style="height:90px">trophy</div><b>Sit &amp; Go</b><div class="mute">6 or 9 players</div></div>
+        <div class="box go" data-go="tourney" style="flex:1"><div class="ph" style="height:90px">big trophy</div><b>Tournament</b><div class="mute">27–180 players</div></div>
+      </div>
+      <div class="abs box" style="left:16px;top:260px;width:540px;bottom:16px">
+        <b>Opponents</b>
+        <div class="row" style="margin-top:10px;flex-wrap:wrap">
+          <div class="col" style="align-items:center"><div class="avatar">Carl</div><span class="tag">station</span></div>
+          <div class="col" style="align-items:center"><div class="avatar">Mia</div><span class="tag">maniac</span></div>
+          <div class="col" style="align-items:center"><div class="avatar">Rita</div><span class="tag">rock</span></div>
+          <div class="col" style="align-items:center"><div class="avatar">Ben</div><span class="tag">nit</span></div>
+          <div class="col" style="align-items:center"><div class="avatar">Prof</div><span class="tag">balanced</span></div>
+          <div class="col" style="align-items:center"><div class="avatar">?</div><span class="tag">random mix</span></div>
+        </div>
+        <div class="row" style="margin-top:14px"><span>Table strength</span><div class="slider" style="max-width:240px"></div><span class="tag">Matches your level</span></div>
+      </div>
+      <div class="abs box" style="right:16px;top:260px;width:500px;bottom:16px">
+        <b>Options</b>
+        <div class="col" style="margin-top:8px">
+          <div class="row" style="justify-content:space-between"><span>Stakes / buy-in</span><span class="tag">1/2 · 200 chips</span></div>
+          <div class="row" style="justify-content:space-between"><span>Coach</span><span class="tag">Questions · Review · Off</span></div>
+          <div class="row" style="justify-content:space-between"><span>HUD</span><span class="tag">Off · Basic · Full</span></div>
+          <div class="row" style="justify-content:space-between"><span>Speed</span><span class="tag">Relaxed · Normal · Turbo</span></div>
+        </div>
+        <div class="btn pri go" data-go="table" style="position:absolute;right:12px;bottom:12px">Sit down</div>
+      </div>
+    </section>
+
+    <!-- 11 TOURNAMENT -->
+    <section class="screen" id="tourney" data-title="Tournament table">
+      <div class="abs box" style="left:12px;top:10px;right:12px;height:54px;padding:6px 12px">
+        <div class="row" style="justify-content:space-between">
+          <span><b>Sunday Mini · 54 players</b></span>
+          <span>Blinds 200/400 (a50) → <span class="mute">300/600 in 3:12</span></span>
+          <span>Left: <b>14</b> · Paid: 9</span>
+          <span>Your stack: <b>6,800 (17 BB)</b></span>
+          <div class="btn sm">Standings</div>
+        </div>
+      </div>
+      <div class="felt" style="top:20%"></div>
+      <div class="abs ph" style="left:30%;right:30%;top:30%;height:30%">same table as cash play, with seats and board</div>
+      <div class="abs box" style="left:12px;top:66%;width:320px">
+        <b>🧑‍🏫 Bubble pressure</b>
+        <div style="font-size:12px;margin-top:4px">5 players from the money. Busting now costs you more than doubling up would gain. Why does that make Q-J a fold here?</div>
+        <div class="btn sm" style="margin-top:6px">Show the ICM picture</div>
+      </div>
+      <div class="actbar"><div class="btn">Fold</div><div class="btn">Call</div><div class="btn pri">All-in 17 BB</div><div class="slider"></div></div>
+      <div class="anno" style="right:20px;top:70px">The blinds bar pulses as the level timer runs out. A dramatic "Bubble" banner appears at the money bubble, and a scrolling chip-leader board plays between tables.</div>
+    </section>
+
+    <!-- 12 GYM -->
+    <section class="screen" id="gym" data-title="Training Gym">
+      <div class="abs row" style="left:16px;top:12px"><div class="btn sm go" data-go="menu">← Menu</div><b>Training Gym</b><span class="mute">fast reps on real spots</span></div>
+      <div class="abs box" style="left:16px;top:52px;width:330px;bottom:16px">
+        <b>Pick a drill</b>
+        <div class="col" style="margin-top:10px">
+          <div class="box go" data-go="gym" style="border-width:3px">⭐ Smart mix <span class="mute">(weakest skills first)</span></div>
+          <div class="box">Open or fold by seat</div>
+          <div class="box">Count the outs</div>
+          <div class="box">Call or fold: pot odds</div>
+          <div class="box">Which hand wins?</div>
+          <div class="box">Range painter</div>
+          <div class="box">Bet size: what does it say?</div>
+          <div class="box">Push / fold (tournament)</div>
+          <div class="box">My saved mistakes (7)</div>
+        </div>
+      </div>
+      <div class="abs box" style="left:360px;top:52px;right:16px;bottom:16px">
+        <div class="row" style="justify-content:space-between"><b>Range painter: BTN open</b><span class="tag">Combo ×4 · 🔥</span></div>
+        <div style="display:flex;gap:20px;margin-top:10px">
+          <div style="width:330px">
+            <div class="grid13" id="grid"></div>
+            <div class="mute" style="font-size:11px;margin-top:4px">Drag to paint the hands you'd raise.</div>
+          </div>
+          <div style="flex:1">
+            <div class="box fill">Paint, then press Check. The overlay shows where your range is too tight or too loose. The question is "why", not "memorize this chart": each hand you mark gets a one-line reason (blockers, playability, position).</div>
+            <div class="row" style="margin-top:10px"><div class="btn pri">Check</div><div class="btn">Explain AJo</div></div>
+            <div class="ph" style="height:140px;margin-top:10px">feedback: cells pulse green or red; the score counts up</div>
+          </div>
+        </div>
+      </div>
+      <div class="anno" style="left:180px;top:420px">Spaced repetition of decisions: spots you miss come back later in new forms (different suits and stacks), so you can't pass by remembering answers.</div>
+    </section>
+
+    <!-- 13 RIVALS -->
+    <section class="screen" id="rivals" data-title="Rivals">
+      <div class="abs row" style="left:16px;top:12px"><div class="btn sm go" data-go="menu">← Menu</div><b>Rivals</b><span class="mute">learn to read people</span></div>
+      <div class="abs row" style="left:16px;top:56px;right:16px;gap:12px">
+        <div class="box" style="flex:1;border-width:3px;text-align:center"><div class="avatar" style="margin:auto">Carl</div><b>Carl</b><br><span class="tag">station</span></div>
+        <div class="box" style="flex:1;text-align:center"><div class="avatar" style="margin:auto">Mia</div><b>Mia</b><br><span class="tag">maniac</span></div>
+        <div class="box" style="flex:1;text-align:center"><div class="avatar" style="margin:auto">Rita</div><b>Rita</b><br><span class="tag">rock</span></div>
+        <div class="box" style="flex:1;text-align:center"><div class="avatar" style="margin:auto">Ben</div><b>Ben</b><br><span class="tag">nit</span></div>
+        <div class="box" style="flex:1;text-align:center"><div class="avatar" style="margin:auto">Prof</div><b>The Prof</b><br><span class="tag">balanced</span></div>
+        <div class="box" style="flex:1;text-align:center;opacity:.5"><div class="avatar" style="margin:auto">?</div><b>???</b><br><span class="tag">🔒 High Roller</span></div>
+      </div>
+      <div class="abs box" style="left:16px;top:210px;width:520px;bottom:16px">
+        <b>Calling-Station Carl</b>
+        <div class="col" style="margin-top:8px;font-size:12px">
+          <div class="row"><span style="width:120px">Plays hands</span><div class="bar-meter" style="flex:1"><b style="width:70%"></b></div><span>loose</span></div>
+          <div class="row"><span style="width:120px">Aggression</span><div class="bar-meter" style="flex:1"><b style="width:15%"></b></div><span>passive</span></div>
+          <div class="row"><span style="width:120px">Folds to bets</span><div class="bar-meter" style="flex:1"><b style="width:10%"></b></div><span>rarely</span></div>
+        </div>
+        <div class="mute" style="font-size:12px;margin-top:8px">Bars are hidden at first and fill in as you play against him. You discover the stats instead of being told them.</div>
+      </div>
+      <div class="abs box" style="right:16px;top:210px;width:520px;bottom:16px">
+        <b>Your notes</b>
+        <div class="ph" style="height:90px;margin-top:6px">free-text notes + auto-notes from reviews ("missed value vs Carl ×3")</div>
+        <b style="display:block;margin-top:10px">How to beat this style</b>
+        <div style="font-size:12px">Unlocked by the Club lesson "Player types". Shows as a question first: "If he never folds, what should you never do?"</div>
+        <div class="btn sm go" data-go="table" style="margin-top:10px">Heads-up vs Carl</div>
+      </div>
+    </section>
+
+    <!-- 14 PROFILE -->
+    <section class="screen" id="profile" data-title="My Game (stats)">
+      <div class="abs row" style="left:16px;top:12px"><div class="btn sm go" data-go="menu">← Menu</div><b>My Game</b></div>
+      <div class="abs box" style="left:16px;top:52px;width:360px;height:300px">
+        <b>Skill radar</b>
+        <div class="ph" style="height:240px;margin-top:6px">radar: Rules · Position · Math · Ranges · Bet sizing · Reading players · Tournaments · Mental game</div>
+      </div>
+      <div class="abs box" style="left:390px;top:52px;right:16px;height:300px">
+        <b>Top leaks</b>
+        <div class="col" style="margin-top:8px">
+          <div class="row" style="justify-content:space-between"><span>1. Checking strong hands on the turn vs passive players</span><div class="btn sm go" data-go="gym">Fix in Gym</div></div>
+          <div class="row" style="justify-content:space-between"><span>2. Calling too wide from the big blind</span><div class="btn sm go" data-go="gym">Fix in Gym</div></div>
+          <div class="row" style="justify-content:space-between"><span>3. Folding too much on the bubble</span><div class="btn sm go" data-go="gym">Fix in Gym</div></div>
+        </div>
+        <div class="ph" style="height:110px;margin-top:12px">decision score over time (line) + chips won (thin line), so you can see that skill ≠ luck</div>
+      </div>
+      <div class="abs box" style="left:16px;top:366px;right:16px;bottom:16px">
+        <b>Passport &amp; history</b>
+        <div class="row" style="margin-top:8px">
+          <div class="ph" style="width:110px;height:90px">🏠 stamp</div><div class="ph" style="width:110px;height:90px">🍺 stamp</div><div class="ph" style="width:110px;height:90px;opacity:.4">🎰</div><div class="ph" style="width:110px;height:90px;opacity:.4">👑</div>
+          <div style="flex:1"></div>
+          <div class="col"><span>Hands played: 3,214</span><span>Sessions: 41</span><div class="btn sm">Hand history</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15 SETTINGS -->
+    <section class="screen" id="settings" data-title="Settings">
+      <div class="abs row" style="left:16px;top:12px"><div class="btn sm go" data-go="menu">← Menu</div><b>Settings</b></div>
+      <div class="abs box" style="left:16px;top:52px;width:240px;bottom:16px">
+        <div class="col"><div class="box fill">Gameplay</div><div class="box">Coach</div><div class="box">Display &amp; animation</div><div class="box">Sound</div><div class="box">Data &amp; backup</div></div>
+      </div>
+      <div class="abs box" style="left:270px;top:52px;right:16px;bottom:16px">
+        <div class="col" style="gap:14px">
+          <div class="row" style="justify-content:space-between"><span>Default game speed</span><span class="tag">Relaxed · Normal · Turbo</span></div>
+          <div class="row" style="justify-content:space-between"><span>Action timer</span><span class="tag">Off · 30s · 15s</span></div>
+          <div class="row" style="justify-content:space-between"><span>Bet-size buttons</span><span class="tag">⅓ ½ ⅔ Pot (editable)</span></div>
+          <div class="row" style="justify-content:space-between"><span>Four-color deck</span><span class="tag">On / Off</span></div>
+          <div class="row" style="justify-content:space-between"><span>Reduce motion</span><span class="tag">On / Off</span></div>
+          <div class="row" style="justify-content:space-between"><span>Keyboard shortcuts</span><span class="tag">F fold · C call · R raise · ↑↓ size</span></div>
+          <div class="row" style="justify-content:space-between"><span>Export / import progress</span><span class="tag">file</span></div>
+        </div>
+        <div class="mute" style="margin-top:20px">Fully offline: no accounts and no network. Progress is saved locally.</div>
+      </div>
+    </section>
+  </div>
+  </div>
+
+  <aside class="notes" id="notes"></aside>
+</main>
+
+<script>
+  const notes = {
+    menu: ["Main menu", ["Game title screen, not a dashboard.", "The \"Today\" card gives a 5-minute warm-up from your weakest skill, which keeps sessions short and steady.", "Quick Play is always open, even for beginners."]],
+    map: ["Career map", ["4 venues = 4 curriculum stages, bottom-up.", "A venue unlocks only when the previous boss and exam are cleared.", "You can replay any cleared venue for stars."]],
+    venue: ["Venue chapter", ["A short path of 6–10 nodes: lessons → drills → table session → boss.", "Skill meters fill from your decision quality, so finishing a lesson isn't enough."]],
+    lesson: ["Lesson: puzzle first", ["Every lesson opens on a real spot at the table.", "You decide first, then the explanation follows, so you form an opinion before being told.", "Hints are allowed but cost stars."]],
+    sandbox: ["Lesson: why + sandbox", ["The animated explanation shows the reasoning visually.", "In the sandbox you change cards and bet sizes and watch the numbers move.", "Ends with 3 fresh spots that apply the idea."]],
+    table: ["Play table", ["The core game screen, shared by career sessions and Quick Play.", "The coach asks the same 3 questions each time, building the habit of thinking in ranges.", "The HUD goes from Off to Full; beginners see less."]],
+    review: ["Hand review", ["A timeline of decisions marked good or leak, with the cost in big blinds.", "Explains why using the opponent's style.", "Missed spots can be sent to the Gym."]],
+    boss: ["Boss intro", ["The boss's style is the venue's core lesson.", "No coach during the boss match.", "Clearing needs a good decision score plus passed exam spots, so luck can't fail you."]],
+    exam: ["Venue result", ["Shows skill and luck separately.", "Stars for mastery, plus a cosmetic reward.", "The path animates on to the next venue."]],
+    lobby: ["Quick Play lobby", ["All 4 formats: 6-max, full ring, heads-up, Sit & Go and multi-table tournaments (all offline vs bots).", "Choose rivals or a random mix.", "Strength auto-matches your level by default."]],
+    tourney: ["Tournament table", ["Same table, plus a blinds/level bar and standings.", "The coach brings up tournament-only ideas (bubble, ICM, push/fold)."]],
+    gym: ["Training Gym", ["Fast reps on real spots, sorted by skill.", "The Smart mix serves your weakest skills first.", "Missed spots return in new forms, so you can't pass by memorizing answers."]],
+    rivals: ["Rivals", ["Character roster with hidden stats that fill in as you play them.", "Teaches you to read player types.", "Start a heads-up match against any rival."]],
+    profile: ["My Game", ["Skill radar, top leaks with one-click fixes.", "Decision score is shown apart from chips won, to teach the difference between skill and luck."]],
+    settings: ["Settings", ["Speed, timer, four-color deck, reduce motion, keyboard shortcuts.", "Fully offline; export or import progress as a file."]]
+  };
+  const screens = [...document.querySelectorAll('.screen')];
+  const nav = document.getElementById('nav');
+  screens.forEach(s => {
+    const b = document.createElement('button');
+    b.textContent = s.dataset.title; b.dataset.id = s.id;
+    b.onclick = () => show(s.id); nav.appendChild(b);
+  });
+  function show(id) {
+    screens.forEach(s => s.classList.toggle('on', s.id === id));
+    nav.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.id === id));
+    const s = document.getElementById(id);
+    document.getElementById('wtitle').textContent = 'All-In: ' + s.dataset.title;
+    const [t, items] = notes[id];
+    document.getElementById('notes').innerHTML = '<div class="n"><h3>' + t + '</h3><ul>' + items.map(i => '<li>' + i + '</li>').join('') + '</ul></div>' +
+      '<div class="n"><h3>Flow</h3>Outlined buttons and boxes are clickable and take you to the next screen.</div>';
+    try { history.replaceState(null, '', '#' + id); } catch (e) {}
+  }
+  document.querySelectorAll('[data-go]').forEach(el => el.addEventListener('click', e => { e.stopPropagation(); show(el.dataset.go); }));
+  // range grid
+  const r = 'AKQJT98765432';
+  const g = document.getElementById('grid');
+  for (let i = 0; i < 13; i++) for (let j = 0; j < 13; j++) {
+    const d = document.createElement('div');
+    d.textContent = i === j ? r[i] + r[j] : i < j ? r[i] + r[j] + 's' : r[j] + r[i] + 'o';
+    const strength = (12 - i) + (12 - j) + (i === j ? 10 : 0) + (i < j ? 3 : 0);
+    if (strength > 15) d.className = 'in'; else if (strength > 12) d.className = 'mx';
+    g.appendChild(d);
+  }
+  // scale the fixed 1120x700 window to fit the available width
+  const stage = document.getElementById('stage'), win = document.getElementById('win');
+  function fit() {
+    const k = Math.min(1, stage.clientWidth / 1120);
+    win.style.transform = 'scale(' + k + ')';
+    stage.style.height = (700 * k) + 'px';
+  }
+  new ResizeObserver(fit).observe(stage);
+  const fromHash = () => { const h = location.hash.slice(1); show(h in notes ? h : 'menu'); };
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
+</script>
+</body>
+</html>
