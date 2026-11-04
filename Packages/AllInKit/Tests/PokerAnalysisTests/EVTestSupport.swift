@@ -69,7 +69,8 @@ func spot(
   }
   let records = steps.flatMap(\.records)
   let state = steps.last!.state
-  guard let start, let context = DecisionContext.make(from: state, for: heroSeat, history: ActionEntry.entries(from: records))
+  guard let start,
+    let context = DecisionContext.make(from: state, for: heroSeat, history: ActionEntry.entries(from: records))
   else { throw EVError.invalidSpot("hero is not to act") }
   return BuiltSpot(spot: EVSpot(start: start, priorActions: actions, context: context), state: state)
 }

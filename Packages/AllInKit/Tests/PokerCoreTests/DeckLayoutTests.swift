@@ -70,7 +70,8 @@ import Testing
     #expect(DeckLayout.deck(button: 0, seats: seats, burnsCards: true, holes: holes, board: board, rest: rest) == nil)
     let good = self.holes(seats: seats, board: board)
     #expect(
-      DeckLayout.deck(button: 0, seats: seats, burnsCards: true, holes: good, board: board, rest: Array(rest.dropLast()))
+      DeckLayout.deck(
+        button: 0, seats: seats, burnsCards: true, holes: good, board: board, rest: Array(rest.dropLast()))
         == nil)
   }
 

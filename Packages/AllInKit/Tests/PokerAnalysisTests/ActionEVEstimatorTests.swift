@@ -97,7 +97,8 @@ import Testing
 
   @Test func asyncEqualsSerial() async throws {
     let built = try turnSpot()
-    let req = request(built, villain: .full, villainSeat: 0, budget: EVBudget(rolloutsPerCandidate: 30, policyStreets: 2, chunks: 7))
+    let req = request(
+      built, villain: .full, villainSeat: 0, budget: EVBudget(rolloutsPerCandidate: 30, policyStreets: 2, chunks: 7))
     let async = try await ActionEVEstimator.estimate(req)
     let serial = try ActionEVEstimator.estimateSerial(req)
     #expect(async == serial)
