@@ -17,3 +17,9 @@ extension XCUIApplication {
 @MainActor func element(_ app: XCUIApplication, _ id: String) -> XCUIElement {
   app.descendants(matching: .any)[id].firstMatch
 }
+
+/// SwiftUI static texts expose their string as `value`; other elements use `label`.
+@MainActor func text(of element: XCUIElement) -> String {
+  if let value = element.value as? String, !value.isEmpty { return value }
+  return element.label
+}

@@ -59,8 +59,7 @@ final class MenuLobbyTests: XCTestCase {
     element(app, "lobby.sitDown").click()
     XCTAssertTrue(element(app, "screen.table").waitForExistence(timeout: 10))
     let format = element(app, "table.format")
-    if format.waitForExistence(timeout: 5) {
-      XCTAssertTrue(format.label.contains("Heads-Up"), format.label)
-    }
+    XCTAssertTrue(format.waitForExistence(timeout: 5))
+    XCTAssertTrue(text(of: format).contains("Heads-Up"), text(of: format))
   }
 }

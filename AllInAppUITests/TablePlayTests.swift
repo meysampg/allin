@@ -11,10 +11,12 @@ final class TablePlayTests: XCTestCase {
     app.launch()
     XCTAssertTrue(element(app, "table.scene").waitForExistence(timeout: 15))
 
-    let deadline = Date().addingTimeInterval(120)
+    let deadline = Date().addingTimeInterval(180)
     var handsDone = 0
     var decisionsInHand2 = 0
     while Date() < deadline {
+      // Key events only reach the app while it is frontmost; reclaim focus if something stole it.
+      if app.state != .runningForeground { app.activate() }
       if element(app, "table.nextHand").exists {
         handsDone += 1
         if handsDone == 3 { break }
@@ -39,7 +41,7 @@ final class TablePlayTests: XCTestCase {
       Thread.sleep(forTimeInterval: 0.2)
     }
     XCTAssertEqual(handsDone, 3)
-    XCTAssertTrue(element(app, "table.handNumber").label.contains("3"))
+    XCTAssertTrue(text(of: element(app, "table.handNumber")).contains("3"))
   }
 
   @MainActor
