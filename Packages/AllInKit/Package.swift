@@ -1,0 +1,57 @@
+// swift-tools-version: 6.2
+import PackageDescription
+
+// Engine modules (PokerCore ... Curriculum) never import SwiftUI, AppKit, SpriteKit or SwiftData.
+// Left out until M10 (PLAN 1.1): PokerAbstraction, Solver, and the allin-solve executable.
+let package = Package(
+  name: "AllInKit",
+  platforms: [.macOS(.v26)],
+  products: [
+    .library(name: "PokerCore", targets: ["PokerCore"]),
+    .library(name: "PokerEquity", targets: ["PokerEquity"]),
+    .library(name: "PokerHost", targets: ["PokerHost"]),
+    .library(name: "PokerAI", targets: ["PokerAI"]),
+    .library(name: "PokerAnalysis", targets: ["PokerAnalysis"]),
+    .library(name: "Curriculum", targets: ["Curriculum"]),
+    .library(name: "ThemeKit", targets: ["ThemeKit"]),
+    .library(name: "TableKit", targets: ["TableKit"]),
+    .library(name: "AllInUI", targets: ["AllInUI"]),
+    .library(name: "AllInStore", targets: ["AllInStore"]),
+    .executable(name: "allin-tool", targets: ["allin-tool"]),
+  ],
+  targets: [
+    // Engine (portable, no UI frameworks).
+    .target(name: "PokerCore"),
+    .target(name: "PokerEquity", dependencies: ["PokerCore"]),
+    .target(name: "PokerHost", dependencies: ["PokerCore"]),
+    .target(name: "PokerAI", dependencies: ["PokerCore", "PokerEquity"]),
+    .target(name: "PokerAnalysis", dependencies: ["PokerCore", "PokerEquity", "PokerAI"]),
+    .target(
+      name: "Curriculum",
+      dependencies: ["PokerCore", "PokerEquity", "PokerAI", "PokerAnalysis"]),
+    // Presentation and persistence (may use Apple frameworks).
+    .target(name: "ThemeKit"),
+    .target(name: "TableKit", dependencies: ["ThemeKit", "PokerCore"]),
+    .target(name: "AllInUI", dependencies: ["ThemeKit", "PokerCore", "PokerEquity"]),
+    .target(name: "AllInStore", dependencies: ["Curriculum", "PokerAnalysis"]),
+    .executableTarget(
+      name: "allin-tool",
+      dependencies: ["PokerCore", "PokerEquity", "PokerHost", "PokerAI", "Curriculum", "ThemeKit"]),
+    // Tests.
+    .testTarget(name: "PokerCoreTests", dependencies: ["PokerCore"]),
+    .testTarget(name: "PokerEquityTests", dependencies: ["PokerEquity", "PokerCore"]),
+    .testTarget(name: "PokerHostTests", dependencies: ["PokerHost", "PokerCore"]),
+    .testTarget(name: "PokerAITests", dependencies: ["PokerAI", "PokerCore", "PokerEquity"]),
+    .testTarget(
+      name: "PokerAnalysisTests", dependencies: ["PokerAnalysis", "PokerCore", "PokerAI"]),
+    .testTarget(name: "CurriculumTests", dependencies: ["Curriculum", "PokerCore"]),
+    .testTarget(name: "ThemeKitTests", dependencies: ["ThemeKit"]),
+    .testTarget(name: "TableKitTests", dependencies: ["TableKit", "ThemeKit", "PokerCore"]),
+    .testTarget(name: "AllInUITests", dependencies: ["AllInUI", "ThemeKit"]),
+    .testTarget(name: "AllInStoreTests", dependencies: ["AllInStore", "Curriculum"]),
+    // Filtered by name from Tools/test.sh: unit skips Heavy and Sim.
+    .testTarget(name: "HeavyTests", dependencies: ["PokerCore"]),
+    .testTarget(name: "SimTests", dependencies: ["PokerHost", "PokerAI", "PokerCore"]),
+    .testTarget(name: "ContentTests", dependencies: ["Curriculum"]),
+  ]
+)
