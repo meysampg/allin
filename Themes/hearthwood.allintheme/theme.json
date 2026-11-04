@@ -1,0 +1,204 @@
+{
+  "author" : "All-In",
+  "id" : "hearthwood",
+  "license" : "CC0-1.0",
+  "name" : "Hearthwood",
+  "palette" : {
+    "bad" : "#C0392B",
+    "cardFace" : "#FBF6EA",
+    "felt" : "#1F4D3A",
+    "gold" : "#D9A441",
+    "good" : "#2E8B57",
+    "ink" : "#2A1E14",
+    "mute" : "#8A7F6A",
+    "night" : "#14100C",
+    "panel" : "#E9D9B4",
+    "parchment" : "#F3E6C8",
+    "rail" : "#6B4423",
+    "rune" : "#7FE3FF",
+    "suitBlack" : "#1B1B1B",
+    "suitBlue" : "#1F5FBF",
+    "suitGreen" : "#1E7A3C",
+    "suitRed" : "#B3261E"
+  },
+  "schemaVersion" : 1,
+  "slots" : {
+    "card.back" : {
+      "params" : {
+        "hue" : 0.08
+      },
+      "procedural" : "back.runeknot"
+    },
+    "card.face" : {
+      "params" : {
+        "frame" : "gilded"
+      },
+      "procedural" : "card.hearthwood"
+    },
+    "chip.1" : {
+      "procedural" : "coin.copper"
+    },
+    "chip.100" : {
+      "procedural" : "gem.ruby"
+    },
+    "chip.1k" : {
+      "procedural" : "gem.emerald"
+    },
+    "chip.25" : {
+      "procedural" : "coin.gold"
+    },
+    "chip.25k" : {
+      "procedural" : "gem.dragonstone"
+    },
+    "chip.5" : {
+      "procedural" : "coin.silver"
+    },
+    "chip.500" : {
+      "procedural" : "gem.sapphire"
+    },
+    "chip.5k" : {
+      "procedural" : "gem.diamond"
+    },
+    "font.body" : {
+      "params" : {
+        "design" : "rounded",
+        "weight" : "regular"
+      },
+      "procedural" : "font.system"
+    },
+    "font.display" : {
+      "params" : {
+        "design" : "serif",
+        "weight" : "heavy"
+      },
+      "procedural" : "font.system"
+    },
+    "fx.coinBurst" : {
+      "params" : {
+        "preset" : "coinBurst"
+      },
+      "procedural" : "fx.particles"
+    },
+    "fx.confetti" : {
+      "params" : {
+        "preset" : "confetti"
+      },
+      "procedural" : "fx.particles"
+    },
+    "fx.embers" : {
+      "params" : {
+        "preset" : "embers"
+      },
+      "procedural" : "fx.particles"
+    },
+    "fx.magicSparks" : {
+      "params" : {
+        "preset" : "magicSparks"
+      },
+      "procedural" : "fx.particles"
+    },
+    "sound.allin" : {
+      "params" : {
+        "base" : 220,
+        "notes" : 1
+      },
+      "procedural" : "sfx.bell"
+    },
+    "sound.card.deal" : {
+      "params" : {
+        "pitch" : 1
+      },
+      "procedural" : "sfx.flick"
+    },
+    "sound.card.flip" : {
+      "params" : {
+        "length" : 0.05,
+        "pitch" : 1.4
+      },
+      "procedural" : "sfx.flick"
+    },
+    "sound.chip.bet" : {
+      "params" : {
+        "count" : 1
+      },
+      "procedural" : "sfx.clink"
+    },
+    "sound.chip.stack" : {
+      "params" : {
+        "count" : 3
+      },
+      "procedural" : "sfx.clink"
+    },
+    "sound.pot.sweep" : {
+      "procedural" : "sfx.sweep"
+    },
+    "sound.stamp" : {
+      "procedural" : "sfx.thump"
+    },
+    "sound.timer" : {
+      "procedural" : "sfx.tick"
+    },
+    "sound.ui.fail" : {
+      "params" : {
+        "from" : 440,
+        "to" : 220
+      },
+      "procedural" : "sfx.tone"
+    },
+    "sound.ui.success" : {
+      "params" : {
+        "base" : 660,
+        "notes" : 2
+      },
+      "procedural" : "sfx.bell"
+    },
+    "sound.ui.tap" : {
+      "params" : {
+        "gain" : 0.4
+      },
+      "procedural" : "sfx.tick"
+    },
+    "sound.win" : {
+      "params" : {
+        "notes" : 3
+      },
+      "procedural" : "sfx.bell"
+    },
+    "table.dealerButton" : {
+      "procedural" : "button.dealer"
+    },
+    "table.felt" : {
+      "params" : {
+        "color" : "#1F4D3A"
+      },
+      "procedural" : "felt.cloth"
+    },
+    "table.light" : {
+      "params" : {
+        "warmth" : 0.7
+      },
+      "procedural" : "light.candle"
+    },
+    "table.rail" : {
+      "procedural" : "rail.oak"
+    },
+    "table.runes" : {
+      "params" : {
+        "color" : "#7FE3FF",
+        "glyphs" : "elder",
+        "pulse" : 0.6
+      },
+      "procedural" : "runes.ring"
+    },
+    "table.shoe" : {
+      "procedural" : "shoe.dragon"
+    },
+    "ui.button.frame" : {
+      "procedural" : "button.frame"
+    },
+    "ui.panel.parchment" : {
+      "procedural" : "panel.parchment"
+    }
+  },
+  "version" : "1.0.0"
+}

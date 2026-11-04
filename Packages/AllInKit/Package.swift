@@ -32,12 +32,12 @@ let package = Package(
       dependencies: ["PokerCore", "PokerEquity", "PokerAI", "PokerAnalysis"]),
     // Presentation and persistence (may use Apple frameworks).
     .target(name: "ThemeKit"),
-    .target(name: "TableKit", dependencies: ["ThemeKit", "PokerCore"]),
+    .target(name: "TableKit", dependencies: ["ThemeKit", "PokerCore"], resources: [.copy("Shaders")]),
     .target(name: "AllInUI", dependencies: ["ThemeKit", "PokerCore", "PokerEquity"]),
     .target(name: "AllInStore", dependencies: ["Curriculum", "PokerAnalysis"]),
     .executableTarget(
       name: "allin-tool",
-      dependencies: ["PokerCore", "PokerEquity", "PokerHost", "PokerAI", "Curriculum", "ThemeKit"]),
+      dependencies: ["PokerCore", "PokerEquity", "PokerHost", "PokerAI", "Curriculum", "ThemeKit", "TableKit"]),
     // Tests.
     .testTarget(name: "PokerCoreTests", dependencies: ["PokerCore"]),
     .testTarget(name: "PokerEquityTests", dependencies: ["PokerEquity", "PokerCore"]),
@@ -49,7 +49,7 @@ let package = Package(
     .testTarget(name: "CurriculumTests", dependencies: ["Curriculum", "PokerCore"]),
     .testTarget(name: "ThemeKitTests", dependencies: ["ThemeKit"]),
     .testTarget(name: "TableKitTests", dependencies: ["TableKit", "ThemeKit", "PokerCore"]),
-    .testTarget(name: "AllInUIKitTests", dependencies: ["AllInUI", "ThemeKit"]),
+    .testTarget(name: "AllInUIKitTests", dependencies: ["AllInUI", "ThemeKit", "PokerCore"]),
     .testTarget(name: "AllInStoreTests", dependencies: ["AllInStore", "Curriculum"]),
     // Filtered by name from Tools/test.sh: unit skips Heavy and Sim.
     .testTarget(name: "HeavyTests", dependencies: ["PokerCore", "PokerEquity"]),

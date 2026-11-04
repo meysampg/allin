@@ -10,6 +10,9 @@
 		A11A00000000000000006201 /* PokerCore in Frameworks */ = {isa = PBXBuildFile; productRef = A11A00000000000000006101 /* PokerCore */; };
 		A11A00000000000000006202 /* ThemeKit in Frameworks */ = {isa = PBXBuildFile; productRef = A11A00000000000000006102 /* ThemeKit */; };
 		A11A00000000000000006203 /* AllInUI in Frameworks */ = {isa = PBXBuildFile; productRef = A11A00000000000000006103 /* AllInUI */; };
+		A11A00000000000000006204 /* TableKit in Frameworks */ = {isa = PBXBuildFile; productRef = A11A00000000000000006104 /* TableKit */; };
+		A11A00000000000000006205 /* PokerHost in Frameworks */ = {isa = PBXBuildFile; productRef = A11A00000000000000006105 /* PokerHost */; };
+		A11A00000000000000006206 /* PokerAI in Frameworks */ = {isa = PBXBuildFile; productRef = A11A00000000000000006106 /* PokerAI */; };
 		A11A00000000000000006301 /* Content in Resources */ = {isa = PBXBuildFile; fileRef = A11A00000000000000000601 /* Content */; };
 		A11A00000000000000006302 /* Themes in Resources */ = {isa = PBXBuildFile; fileRef = A11A00000000000000000602 /* Themes */; };
 /* End PBXBuildFile section */
@@ -66,6 +69,9 @@
 				A11A00000000000000006201 /* PokerCore in Frameworks */,
 				A11A00000000000000006202 /* ThemeKit in Frameworks */,
 				A11A00000000000000006203 /* AllInUI in Frameworks */,
+				A11A00000000000000006204 /* TableKit in Frameworks */,
+				A11A00000000000000006205 /* PokerHost in Frameworks */,
+				A11A00000000000000006206 /* PokerAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +137,9 @@
 				A11A00000000000000006101 /* PokerCore */,
 				A11A00000000000000006102 /* ThemeKit */,
 				A11A00000000000000006103 /* AllInUI */,
+				A11A00000000000000006104 /* TableKit */,
+				A11A00000000000000006105 /* PokerHost */,
+				A11A00000000000000006106 /* PokerAI */,
 			);
 			productName = AllIn;
 			productReference = A11A00000000000000001001 /* AllIn.app */;
@@ -445,6 +454,18 @@
 		A11A00000000000000006103 /* AllInUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AllInUI;
+		};
+		A11A00000000000000006104 /* TableKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TableKit;
+		};
+		A11A00000000000000006105 /* PokerHost */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PokerHost;
+		};
+		A11A00000000000000006106 /* PokerAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PokerAI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -19,6 +19,10 @@ CONFIGURATION="${CONFIGURATION:-Debug}"
 if have_pkg; then
   echo "==> swift build ($PKG)"
   swift build --package-path "$PKG"
+  if [ -d Themes ]; then
+    echo "==> theme validate"
+    "$(swift build --package-path "$PKG" --show-bin-path)/allin-tool" theme validate Themes
+  fi
 else
   skip "$PKG/Package.swift not found; package not built"
 fi

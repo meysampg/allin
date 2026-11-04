@@ -1,0 +1,12 @@
+Hearthwood theme pack for All-In
+
+To the extent possible under law, the authors have dedicated all copyright and
+related and neighboring rights to this theme pack (theme.json and any files in
+this folder) to the public domain worldwide, under the CC0 1.0 Universal
+Public Domain Dedication.
+
+You can copy, modify, distribute and perform the work, even for commercial
+purposes, all without asking permission.
+
+Full legal text: https://creativecommons.org/publicdomain/zero/1.0/legalcode
+SPDX-License-Identifier: CC0-1.0

@@ -23,6 +23,7 @@ func printHelp() {
 
 func runCommand(_ name: String, _ rest: [String]) async throws -> Int32 {
   switch name {
+  case "theme": return try await ThemeCommand.run(rest)
   case "sim": return try await SimCommand.run(rest)
   case "gen-preflop": return try await GenPreflopCommand.run(rest)
   case "gen-preflop-ranges": return try await GenPreflopRangesCommand.run(rest)
