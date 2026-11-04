@@ -69,7 +69,9 @@ public struct HandRange: Sendable, Hashable {
   public func removing(_ dead: CardSet) -> HandRange {
     guard !dead.isEmpty else { return self }
     var r = self
-    for combo in Combo.all where !combo.mask.isDisjoint(with: dead) { r.weights[combo.index] = 0 }
+    let deadBits = dead.bits
+    let table = Combo.maskBits
+    for i in 0..<table.count where table[i] & deadBits != 0 { r.weights[i] = 0 }
     return r
   }
 

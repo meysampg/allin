@@ -17,6 +17,12 @@ public struct Combo: Sendable, Hashable, Comparable, Codable, CustomStringConver
     return table
   }()
 
+  /// Precomputed card-set bits for every combo index.
+  static let maskBits: [UInt64] = (0..<1326).map { i in
+    let pair = cardPairs[i]
+    return (1 as UInt64) << UInt64(pair[0]) | (1 as UInt64) << UInt64(pair[1])
+  }
+
   public let index: Int
 
   private init(uncheckedIndex: Int) { index = uncheckedIndex }
@@ -47,7 +53,7 @@ public struct Combo: Sendable, Hashable, Comparable, Codable, CustomStringConver
   /// The card with the smaller `Card.index`.
   public var low: Card { Card(index: Combo.cardPairs[index][0]) }
   public var cards: [Card] { [high, low] }
-  public var mask: CardSet { CardSet(cards) }
+  public var mask: CardSet { CardSet(bits: Combo.maskBits[index]) }
 
   public var handClass: HandClass { HandClass.all[HandClass.gridIndexByCombo[index]] }
 
