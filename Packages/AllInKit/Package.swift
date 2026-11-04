@@ -34,7 +34,7 @@ let package = Package(
     .target(name: "ThemeKit"),
     .target(name: "TableKit", dependencies: ["ThemeKit", "PokerCore"], resources: [.copy("Shaders")]),
     .target(name: "AllInUI", dependencies: ["ThemeKit", "PokerCore", "PokerEquity"]),
-    .target(name: "AllInStore", dependencies: ["Curriculum", "PokerAnalysis"]),
+    .target(name: "AllInStore", dependencies: ["Curriculum", "PokerAnalysis", "PokerCore"]),
     .executableTarget(
       name: "allin-tool",
       dependencies: ["PokerCore", "PokerEquity", "PokerHost", "PokerAI", "Curriculum", "ThemeKit", "TableKit"]),
@@ -45,15 +45,16 @@ let package = Package(
     // PokerHost only for headless matches in tests; the PokerAI module itself never imports PokerHost.
     .testTarget(name: "PokerAITests", dependencies: ["PokerAI", "PokerCore", "PokerEquity", "PokerHost"]),
     .testTarget(
-      name: "PokerAnalysisTests", dependencies: ["PokerAnalysis", "PokerCore", "PokerAI"]),
+      name: "PokerAnalysisTests", dependencies: ["PokerAnalysis", "PokerCore", "PokerEquity", "PokerAI"]),
     .testTarget(name: "CurriculumTests", dependencies: ["Curriculum", "PokerCore"]),
     .testTarget(name: "ThemeKitTests", dependencies: ["ThemeKit"]),
     .testTarget(name: "TableKitTests", dependencies: ["TableKit", "ThemeKit", "PokerCore"]),
-    .testTarget(name: "AllInUIKitTests", dependencies: ["AllInUI", "ThemeKit", "PokerCore"]),
-    .testTarget(name: "AllInStoreTests", dependencies: ["AllInStore", "Curriculum"]),
+    .testTarget(name: "AllInUIKitTests", dependencies: ["AllInUI", "ThemeKit", "PokerCore", "PokerEquity"]),
+    .testTarget(name: "AllInStoreTests", dependencies: ["AllInStore", "Curriculum", "PokerCore"]),
     // Filtered by name from Tools/test.sh: unit skips Heavy and Sim.
-    .testTarget(name: "HeavyTests", dependencies: ["PokerCore", "PokerEquity"]),
-    .testTarget(name: "SimTests", dependencies: ["PokerHost", "PokerAI", "PokerCore", "PokerEquity"]),
+    .testTarget(name: "HeavyTests", dependencies: ["PokerCore", "PokerEquity", "PokerAI", "PokerAnalysis"]),
+    .testTarget(
+      name: "SimTests", dependencies: ["PokerHost", "PokerAI", "PokerCore", "PokerEquity", "PokerAnalysis"]),
     .testTarget(name: "ContentTests", dependencies: ["Curriculum"]),
   ]
 )
