@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "mott",
+  "name": "Mott",
+  "style": "nit",
+  "strategy": "personality",
+  "params": {
+    "vpip": 0.1,
+    "pfrRatio": 0.7,
+    "threeBet": 0.025,
+    "foldTo3Bet": 0.8,
+    "positionAwareness": 0.5,
+    "cbet": 0.25,
+    "barrel": 0.1,
+    "bluffFreq": 0.02,
+    "valueThreshold": 0.72,
+    "continueThreshold": 1.4,
+    "stickiness": 0.05,
+    "slowplay": 0.1,
+    "readSkill": 0.5,
+    "randomness": 0.05,
+    "shapeNoise": 0.02,
+    "sizing": {
+      "openRaiseBB": 3.0,
+      "threeBetMultiplier": 3.5,
+      "value": 0.6,
+      "nutted": 0.66,
+      "bluff": 0.5,
+      "overbetFrequency": 0.0
+    }
+  }
+}

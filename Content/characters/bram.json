@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "bram",
+  "name": "Bram",
+  "style": "loose-passive, never bluffs",
+  "strategy": "personality",
+  "params": {
+    "vpip": 0.45,
+    "pfrRatio": 0.25,
+    "threeBet": 0.03,
+    "foldTo3Bet": 0.4,
+    "positionAwareness": 0.2,
+    "cbet": 0.3,
+    "barrel": 0.1,
+    "bluffFreq": 0.0,
+    "valueThreshold": 0.75,
+    "continueThreshold": 1.0,
+    "stickiness": 0.6,
+    "slowplay": 0.2,
+    "readSkill": 0.2,
+    "randomness": 0.1,
+    "shapeNoise": 0.05,
+    "sizing": {
+      "openRaiseBB": 2.5,
+      "threeBetMultiplier": 3.0,
+      "value": 0.5,
+      "nutted": 0.5,
+      "bluff": 0.5,
+      "overbetFrequency": 0.0
+    }
+  }
+}

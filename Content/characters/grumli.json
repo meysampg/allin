@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "grumli",
+  "name": "Grumli",
+  "style": "calling station",
+  "strategy": "personality",
+  "params": {
+    "vpip": 0.55,
+    "pfrRatio": 0.15,
+    "threeBet": 0.02,
+    "foldTo3Bet": 0.3,
+    "positionAwareness": 0.2,
+    "cbet": 0.35,
+    "barrel": 0.15,
+    "bluffFreq": 0.03,
+    "valueThreshold": 0.7,
+    "continueThreshold": 0.8,
+    "stickiness": 0.9,
+    "slowplay": 0.3,
+    "readSkill": 0.1,
+    "randomness": 0.1,
+    "shapeNoise": 0.05,
+    "sizing": {
+      "openRaiseBB": 2.5,
+      "threeBetMultiplier": 3.0,
+      "value": 0.5,
+      "nutted": 0.66,
+      "bluff": 0.5,
+      "overbetFrequency": 0.0
+    }
+  }
+}

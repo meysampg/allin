@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "zib",
+  "name": "Zib",
+  "style": "maniac",
+  "strategy": "personality",
+  "params": {
+    "vpip": 0.6,
+    "pfrRatio": 0.8,
+    "threeBet": 0.2,
+    "foldTo3Bet": 0.25,
+    "positionAwareness": 0.3,
+    "cbet": 0.9,
+    "barrel": 0.7,
+    "bluffFreq": 0.45,
+    "valueThreshold": 0.55,
+    "continueThreshold": 0.9,
+    "stickiness": 0.4,
+    "slowplay": 0.05,
+    "readSkill": 0.2,
+    "randomness": 0.15,
+    "shapeNoise": 0.05,
+    "sizing": {
+      "openRaiseBB": 3.0,
+      "threeBetMultiplier": 3.0,
+      "value": 0.75,
+      "nutted": 0.8,
+      "bluff": 0.75,
+      "overbetFrequency": 0.35
+    }
+  }
+}
