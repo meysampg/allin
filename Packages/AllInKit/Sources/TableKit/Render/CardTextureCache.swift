@@ -53,6 +53,7 @@ import ThemeKit
   private static func makeTexture(_ image: CGImage) -> SKTexture {
     let texture = SKTexture(cgImage: image)
     texture.filteringMode = .linear
+    texture.usesMipmaps = true
     return texture
   }
 }

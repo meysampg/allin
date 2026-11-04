@@ -50,7 +50,8 @@ import ThemeKit
 
   private func buildDrifters() {
     var rng = SeededRNG(seed: seed)
-    let cards = CardTextureCache(renderer: CardRenderer(resolver: resolver))
+    let cardOptions = CardRenderOptions(pixelSize: CardRenderOptions.tablePixelSize)
+    let cards = CardTextureCache(renderer: CardRenderer(resolver: resolver, options: cardOptions))
     let chips = ChipTextureCache(renderer: ChipRenderer(resolver: resolver), pixelDiameter: 64)
     let deck = Card.all.shuffled(using: &rng)
     let total = Self.cardCount + Self.chipCount

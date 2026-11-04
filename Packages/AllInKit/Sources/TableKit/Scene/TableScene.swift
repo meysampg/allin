@@ -75,7 +75,7 @@ import ThemeKit
     cardCache = CardTextureCache(
       renderer: CardRenderer(
         resolver: resolver,
-        options: CardRenderOptions(pixelSize: CGSize(width: 150, height: 210), fourColor: options.fourColorDeck)))
+        options: CardRenderOptions(pixelSize: CardRenderOptions.tablePixelSize, fourColor: options.fourColorDeck)))
     chipCache = ChipTextureCache(renderer: ChipRenderer(resolver: resolver), pixelDiameter: 64)
     tableRenderer = TableRenderer(resolver: resolver)
     dealerButton = DealerButtonNode(renderer: TableRenderer(resolver: resolver))

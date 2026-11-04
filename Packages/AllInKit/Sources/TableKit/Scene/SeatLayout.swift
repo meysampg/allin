@@ -25,16 +25,16 @@ public enum SeatLayout {
   // Bet spots sit beside the seat, on the side facing the middle of the table, and stay clear of the board, the pot
   // and every seat block (cards, medallion, name box and style hint).
   private static let ring2: [Spot] = [
-    (CGPoint(x: 0.50, y: 0.70), unit(448, 470)),
+    (CGPoint(x: 0.50, y: 0.70), unit(430, 470)),
     (CGPoint(x: 0.50, y: 0.12), unit(672, 119)),
   ]
   private static let ring6: [Spot] = [
-    (CGPoint(x: 0.45, y: 0.70), unit(392, 470)), (CGPoint(x: 0.12, y: 0.40), unit(246, 280)),
+    (CGPoint(x: 0.45, y: 0.70), unit(380, 470)), (CGPoint(x: 0.12, y: 0.40), unit(246, 280)),
     (CGPoint(x: 0.30, y: 0.12), unit(448, 119)), (CGPoint(x: 0.70, y: 0.12), unit(672, 119)),
     (CGPoint(x: 0.88, y: 0.40), unit(874, 280)), (CGPoint(x: 0.75, y: 0.66), unit(728, 462)),
   ]
   private static let ring9: [Spot] = [
-    (CGPoint(x: 0.50, y: 0.72), unit(448, 470)), (CGPoint(x: 0.22, y: 0.66), unit(358, 462)),
+    (CGPoint(x: 0.50, y: 0.72), unit(438, 470)), (CGPoint(x: 0.22, y: 0.66), unit(356, 462)),
     (CGPoint(x: 0.08, y: 0.42), unit(202, 294)), (CGPoint(x: 0.13, y: 0.16), unit(258, 119)),
     (CGPoint(x: 0.35, y: 0.10), unit(504, 119)), (CGPoint(x: 0.65, y: 0.10), unit(616, 119)),
     (CGPoint(x: 0.87, y: 0.16), unit(862, 119)), (CGPoint(x: 0.92, y: 0.42), unit(918, 294)),
@@ -69,7 +69,14 @@ public enum SeatLayout {
   // MARK: Occupied areas (normalized, y down)
 
   /// The five board cards, with room for the showdown lift.
-  public static var boardRect: CGRect { rect(x: 396, y: 160, width: 328, height: 100) }
+  public static var boardRect: CGRect { rect(x: 372, y: 160, width: 376, height: 100) }
+
+  /// The hero hole cards (75 x 105 pt, 70 pt above the seat, spread 75 pt, with tilt and showdown lift).
+  public static func heroCardRect(at seatPoint: CGPoint) -> CGRect {
+    CGRect(
+      x: seatPoint.x - 80 / baseWidth, y: seatPoint.y - 131 / baseHeight, width: 160 / baseWidth,
+      height: 114 / baseHeight)
+  }
 
   /// The pot chips and caption.
   public static var potRect: CGRect { rect(x: 500, y: 278, width: 120, height: 72) }

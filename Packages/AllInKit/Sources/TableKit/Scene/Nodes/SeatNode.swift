@@ -6,6 +6,9 @@ import ThemeKit
 /// One seat: medallion, name and stack box, style hint, two cards and the bet stack.
 @MainActor final class SeatNode: SKNode {
   static let boxSize = CGSize(width: 138, height: 24)
+  /// Card sizes in scene points (5:7). SeatLayout.heroCardRect depends on the hero numbers.
+  static let heroCardSize = CGSize(width: 75, height: 105)
+  static let opponentCardSize = CGSize(width: 48, height: 67)
 
   let seatIndex: Int
   let isHero: Bool
@@ -29,7 +32,7 @@ import ThemeKit
     box = SKSpriteNode(texture: Self.boxTexture(resolver: resolver), size: Self.boxSize)
     let gold = resolver.palette[.gold]
     self.gold = SKColor(srgbRed: gold.red, green: gold.green, blue: gold.blue, alpha: 1)
-    let cardSize = info.isHero ? CGSize(width: 50, height: 70) : CGSize(width: 38, height: 53)
+    let cardSize = info.isHero ? Self.heroCardSize : Self.opponentCardSize
     self.cardSize = cardSize
     cardSprites = (0..<2).map { _ in SKSpriteNode(color: .clear, size: cardSize) }
     super.init()
@@ -72,8 +75,8 @@ import ThemeKit
 
   func restPosition(_ index: Int) -> CGPoint {
     let sign: CGFloat = index == 0 ? -1 : 1
-    let spread = cardSize.width * 0.55
-    return CGPoint(x: sign * spread, y: isHero ? 52 : 40)
+    let spread = cardSize.width * 0.5
+    return CGPoint(x: sign * spread, y: isHero ? 70 : 46)
   }
 
   /// Brings every label, card and tint to the snapshot. Safe to call at any time.

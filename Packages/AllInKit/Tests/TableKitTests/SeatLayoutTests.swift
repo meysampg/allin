@@ -65,4 +65,18 @@ import Testing
       #expect(!rect.intersects(board), "seat \(seat) hits the board")
     }
   }
+
+  @Test(arguments: [2, 6, 9])
+  func heroCardsStayClearOfBoardPotAndBets(count: Int) {
+    let points = SeatLayout.positions(seatCount: count, heroSeat: 0)
+    let hero = SeatLayout.heroCardRect(at: points[0]!)
+    #expect(!hero.intersects(SeatLayout.boardRect), "hero cards hit the board")
+    #expect(!hero.intersects(SeatLayout.potRect), "hero cards hit the pot")
+    #expect(!hero.intersects(SeatLayout.shoeRect), "hero cards hit the shoe")
+    for (seat, point) in points {
+      #expect(!hero.intersects(SeatLayout.betRect(forSeatAt: point)), "hero cards hit bet \(seat)")
+      if seat != 0 { #expect(!hero.intersects(SeatLayout.seatRect(at: point)), "hero cards hit seat \(seat)") }
+    }
+    #expect(CGRect(x: 0, y: 0, width: 1, height: 1).contains(hero))
+  }
 }

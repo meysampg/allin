@@ -3,8 +3,8 @@ import SpriteKit
 
 /// Five community-card slots in a row, hidden until dealt.
 @MainActor final class BoardNode: SKNode {
-  static let cardSize = CGSize(width: 56, height: 78)
-  static let spacing: CGFloat = 66
+  static let cardSize = CGSize(width: 66, height: 92)
+  static let spacing: CGFloat = 76
 
   let slots: [SKSpriteNode]
 
