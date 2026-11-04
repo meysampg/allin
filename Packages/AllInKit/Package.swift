@@ -46,15 +46,18 @@ let package = Package(
     .testTarget(name: "PokerAITests", dependencies: ["PokerAI", "PokerCore", "PokerEquity", "PokerHost"]),
     .testTarget(
       name: "PokerAnalysisTests", dependencies: ["PokerAnalysis", "PokerCore", "PokerEquity", "PokerAI"]),
-    .testTarget(name: "CurriculumTests", dependencies: ["Curriculum", "PokerCore"]),
+    .testTarget(
+      name: "CurriculumTests", dependencies: ["Curriculum", "PokerCore", "PokerEquity", "PokerAI", "PokerAnalysis"]),
     .testTarget(name: "ThemeKitTests", dependencies: ["ThemeKit"]),
     .testTarget(name: "TableKitTests", dependencies: ["TableKit", "ThemeKit", "PokerCore"]),
     .testTarget(name: "AllInUIKitTests", dependencies: ["AllInUI", "ThemeKit", "PokerCore", "PokerEquity"]),
     .testTarget(name: "AllInStoreTests", dependencies: ["AllInStore", "Curriculum", "PokerCore"]),
     // Filtered by name from Tools/test.sh: unit skips Heavy and Sim.
-    .testTarget(name: "HeavyTests", dependencies: ["PokerCore", "PokerEquity", "PokerAI", "PokerAnalysis"]),
+    .testTarget(
+      name: "HeavyTests", dependencies: ["PokerCore", "PokerEquity", "PokerAI", "PokerAnalysis", "Curriculum"]),
     .testTarget(
       name: "SimTests", dependencies: ["PokerHost", "PokerAI", "PokerCore", "PokerEquity", "PokerAnalysis"]),
-    .testTarget(name: "ContentTests", dependencies: ["Curriculum"]),
+    .testTarget(
+      name: "ContentTests", dependencies: ["Curriculum", "PokerCore", "PokerEquity", "PokerAI", "PokerAnalysis"]),
   ]
 )

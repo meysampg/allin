@@ -16,6 +16,7 @@
 		A11A00000000000000006207 /* PokerEquity in Frameworks */ = {isa = PBXBuildFile; productRef = A11A00000000000000006107 /* PokerEquity */; };
 		A11A00000000000000006208 /* PokerAnalysis in Frameworks */ = {isa = PBXBuildFile; productRef = A11A00000000000000006108 /* PokerAnalysis */; };
 		A11A00000000000000006209 /* AllInStore in Frameworks */ = {isa = PBXBuildFile; productRef = A11A00000000000000006109 /* AllInStore */; };
+		A11A0000000000000000620A /* Curriculum in Frameworks */ = {isa = PBXBuildFile; productRef = A11A0000000000000000610A /* Curriculum */; };
 		A11A00000000000000006301 /* Content in Resources */ = {isa = PBXBuildFile; fileRef = A11A00000000000000000601 /* Content */; };
 		A11A00000000000000006302 /* Themes in Resources */ = {isa = PBXBuildFile; fileRef = A11A00000000000000000602 /* Themes */; };
 /* End PBXBuildFile section */
@@ -78,6 +79,7 @@
 				A11A00000000000000006207 /* PokerEquity in Frameworks */,
 				A11A00000000000000006208 /* PokerAnalysis in Frameworks */,
 				A11A00000000000000006209 /* AllInStore in Frameworks */,
+				A11A0000000000000000620A /* Curriculum in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +151,7 @@
 				A11A00000000000000006107 /* PokerEquity */,
 				A11A00000000000000006108 /* PokerAnalysis */,
 				A11A00000000000000006109 /* AllInStore */,
+				A11A0000000000000000610A /* Curriculum */,
 			);
 			productName = AllIn;
 			productReference = A11A00000000000000001001 /* AllIn.app */;
@@ -489,6 +492,10 @@
 		A11A00000000000000006109 /* AllInStore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AllInStore;
+		};
+		A11A0000000000000000610A /* Curriculum */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Curriculum;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
