@@ -8,7 +8,7 @@ An offline macOS app for learning Texas Hold'em from the ground up and playing i
 - Character opponents with distinct play styles
 - Stylized, game-like UI with rich animation
 
-Status: M0 in progress (skeleton, package and local scripts). UI approved (`design/wireframes/`), implementation plan in [`docs/PLAN.md`](docs/PLAN.md). Theme: cozy high fantasy.
+Status: M3 done (first playable build: theme system, animated fantasy table, main menu, Quick Play lobby; cash 6-max and heads-up against the bots). Next: M4 (analysis, coach panel, hand review, persistence). UI approved (`design/wireframes/`), implementation plan in [`docs/PLAN.md`](docs/PLAN.md). Theme: cozy high fantasy.
 
 ## Build and run
 

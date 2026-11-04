@@ -51,3 +51,15 @@ The engine modules (PokerCore, PokerEquity, PokerHost, PokerAI, PokerAnalysis, C
 - `preflop169.bin` is about 376 KB (47,008 entries), not 120 KB.
 - There is no `RangeTracker` yet. Bots read the hero through `PerceivedRange` (PokerEquity) with `readSkill` blur. M4 adds a batched Bayesian tracker.
 - `allin-tool sim` and the Sim gates use heads-up duplicate deals for win rates and 6-max (personality + 5 Oryn) for style stats.
+
+## Where the code differs from PLAN.md (M3)
+
+- M3.7 (app shell) ran after M3.6, not alongside it, because `RootView` injects the AllInUI `Theme` environment and uses its button style.
+- Bet-size maths lives in AllInUI (`AllInUI/Table/BetSizing.swift`) so it can be unit-tested; the app target has no unit-test target.
+- `allin-tool` links TableKit (SpriteKit) for `theme render-cards` and `theme render-table`, so the tool is macOS-only.
+- The Arena button is not on the main menu until M7. The next hand starts on Space or a click (no auto-deal), which keeps UI tests deterministic.
+- Table keys go through the menu-bar `Commands` (`FocusedValues.tableActions`) with an `.onKeyPress` fallback.
+- `TableModel` collects every seat's bet (folded seats included) when a street is dealt, because the host emits `potsUpdated` only at the end of a hand.
+- `AnimationQueue` in `.spriteKit` mode starts each SKAction and waits for its duration with `Task.sleep` instead of awaiting the action, so a paused or hidden scene cannot hang the queue.
+- `SeatLayout` uses hand-placed bet spots for 2, 6 and 9 seats, and the dealer shoe sits at the top right of the rail.
+- The UI tests and `Tools/screens.sh` need macOS Automation Mode enabled (`automationmodetool`) and Screen Recording permission for the terminal.
