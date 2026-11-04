@@ -42,7 +42,7 @@ allin/
 │  │              Gym/ Rivals/ MyGame/ Settings/ Arena/ Coach/
 │  ├─ Resources/  Assets.xcassets, PrivacyInfo.xcprivacy, AllIn.entitlements
 │  └─ (folder refs copied into the bundle) ../Content, ../Themes
-├─ AllInUITests/                  XCUITest smoke tests (one per screen)
+├─ AllInAppUITests/                  XCUITest smoke tests (one per screen)
 ├─ Packages/AllInKit/
 │  ├─ Package.swift
 │  ├─ Sources/
@@ -771,7 +771,7 @@ Settings use `@AppStorage`/UserDefaults. **Export/import** writes a single `.all
 | `sim` | `swift test -c release --filter Sim` | < 10 min |
 | `content` | `--filter ContentTests` | |
 | `lint` | swift-format lint, plus a grep that forbids UI imports in engine modules | |
-| `ui` | `xcodebuild test -scheme AllIn -only-testing:AllInUITests` | |
+| `ui` | `xcodebuild test -scheme AllIn -only-testing:AllInAppUITests` | |
 | `all` | everything | |
 
 `Tools/build.sh` runs `content validate`, then `theme validate`, then `xcodebuild -scheme AllIn -configuration Debug build`.
@@ -802,7 +802,7 @@ Each task is sized for one Sonnet subagent. "Files" lists what the task owns; ot
 | ID | Task | Files | Acceptance |
 |---|---|---|---|
 | M0.1 | Package skeleton: all v1 modules and test targets with placeholder types; Swift 6 mode; platforms macOS 26; executable `allin-tool` printing help | `Packages/AllInKit/Package.swift`, `Sources/*/Module.swift`, `Tests/*/SmokeTests.swift` | `swift test --package-path Packages/AllInKit` passes |
-| M0.2 | Xcode project modeled on Kata's `KataMac` target: `AllIn` app plus `AllInUITests`, local package reference, synchronized groups, `Content/` and `Themes/` as folder resources, entitlements (sandbox, user-selected read-write), privacy manifest, Info.plist (category), placeholder `RootView` "ALL-IN" | `AllIn.xcodeproj`, `AllIn/App/*`, `AllIn/Resources/*`, `Config/Info.plist`, `AllInUITests/LaunchTests.swift` | `xcodebuild build` passes; UI launch test passes; entitlements check |
+| M0.2 | Xcode project modeled on Kata's `KataMac` target: `AllIn` app plus `AllInAppUITests`, local package reference, synchronized groups, `Content/` and `Themes/` as folder resources, entitlements (sandbox, user-selected read-write), privacy manifest, Info.plist (category), placeholder `RootView` "ALL-IN" | `AllIn.xcodeproj`, `AllIn/App/*`, `AllIn/Resources/*`, `Config/Info.plist`, `AllInAppUITests/LaunchTests.swift` | `xcodebuild build` passes; UI launch test passes; entitlements check |
 | M0.3 | Scripts and docs: `Tools/build.sh`, `test.sh` (levels), `run.sh`, `screens.sh` (screencapture of the app window per demo screen), `.gitignore`, `.swift-format`, `docs/ARCHITECTURE.md` (§1 rules), `CONTRIBUTING.md`, README status | `Tools/*`, `docs/ARCHITECTURE.md`, root files | scripts run; `test.sh lint` passes |
 
 **Parallel:** M0.1 and M0.3, then M0.2.

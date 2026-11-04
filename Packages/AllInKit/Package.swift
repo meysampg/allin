@@ -47,7 +47,7 @@ let package = Package(
     .testTarget(name: "CurriculumTests", dependencies: ["Curriculum", "PokerCore"]),
     .testTarget(name: "ThemeKitTests", dependencies: ["ThemeKit"]),
     .testTarget(name: "TableKitTests", dependencies: ["TableKit", "ThemeKit", "PokerCore"]),
-    .testTarget(name: "AllInUITests", dependencies: ["AllInUI", "ThemeKit"]),
+    .testTarget(name: "AllInUIKitTests", dependencies: ["AllInUI", "ThemeKit"]),
     .testTarget(name: "AllInStoreTests", dependencies: ["AllInStore", "Curriculum"]),
     // Filtered by name from Tools/test.sh: unit skips Heavy and Sim.
     .testTarget(name: "HeavyTests", dependencies: ["PokerCore"]),

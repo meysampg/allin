@@ -12,7 +12,7 @@ Levels:
   heavy    swift test -c release --filter Heavy          (< 10 min)
   sim      swift test -c release --filter Sim            (< 10 min)
   content  swift test --filter ContentTests
-  ui       xcodebuild test, AllInUITests only
+  ui       xcodebuild test, AllInAppUITests only
   lint     swift format lint + engine-module import check
   all      unit, content, heavy, sim, lint, ui
 
@@ -42,16 +42,16 @@ level_content() {
 }
 level_ui() {
   if ! have_xcodeproj; then skip "ui: AllIn.xcodeproj not found"; return 0; fi
-  if [ ! -d AllInUITests ]; then skip "ui: AllInUITests not found"; return 0; fi
+  if [ ! -d AllInAppUITests ]; then skip "ui: AllInAppUITests not found"; return 0; fi
   echo "==> ui"
   xcodebuild test -project AllIn.xcodeproj -scheme AllIn -destination 'platform=macOS,arch=arm64' \
-    -derivedDataPath "$DERIVED" -only-testing:AllInUITests -quiet
+    -derivedDataPath "$DERIVED" -only-testing:AllInAppUITests -quiet
 }
 
 level_lint() {
   echo "==> lint"
   local dirs=() d
-  for d in Packages AllIn AllInUITests; do [ -d "$d" ] && dirs+=("$d"); done
+  for d in Packages AllIn AllInAppUITests; do [ -d "$d" ] && dirs+=("$d"); done
   if [ ${#dirs[@]} -eq 0 ]; then
     skip "lint: nothing to format-lint (no Packages/ or AllIn/)"
   elif ! find "${dirs[@]}" -name '*.swift' -not -path '*/.build/*' | grep -q .; then

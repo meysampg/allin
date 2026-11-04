@@ -24,7 +24,7 @@ Tools/screens.sh [screen ids]  # PNG of the app window per demo screen into buil
 | `heavy` | release-mode `Heavy` tests (under 10 min) |
 | `sim` | release-mode `Sim` tests (under 10 min) |
 | `content` | `ContentTests`, the content validator |
-| `ui` | XCUITest smoke tests (`AllInUITests`) |
+| `ui` | XCUITest smoke tests (`AllInAppUITests`) |
 | `lint` | `swift format lint` plus the engine-module import check |
 | `all` | everything |
 
