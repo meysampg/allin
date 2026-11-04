@@ -48,13 +48,19 @@ private struct TableContent: View {
         }
         ActionBar(controller: controller)
       }
-      if controller.setup.coach == .questions, controller.coachVisible {
+      if controller.coachVisible, controller.coach.hintLevel != .off {
         GeometryReader { proxy in
-          CoachThinkBox(controller: controller)
+          CoachPanel(controller: controller)
             .padding(.leading, 12)
             .padding(.top, proxy.size.height * 0.56)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
+      }
+      if controller.coach.rangeState != .hidden {
+        CoachRangePanel(controller: controller)
+          .padding(.leading, 12)
+          .padding(.top, 60)
+          .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
       }
       if controller.isMenuOpen {
         TableMenuOverlay(controller: controller)
