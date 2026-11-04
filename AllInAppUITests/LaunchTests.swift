@@ -9,6 +9,6 @@ final class LaunchTests: XCTestCase {
   func testLaunchShowsTitle() {
     let app = XCUIApplication()
     app.launch()
-    XCTAssertTrue(app.staticTexts["ALL-IN"].waitForExistence(timeout: 10))
+    XCTAssertTrue(element(app, "menu.title").waitForExistence(timeout: 10))
   }
 }

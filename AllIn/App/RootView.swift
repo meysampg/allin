@@ -1,13 +1,35 @@
+import AllInUI
 import SwiftUI
 
 struct RootView: View {
-  var body: some View {
-    Text("ALL-IN")
-      .font(.system(size: 64, weight: .heavy, design: .serif))
-      .frame(maxWidth: .infinity, maxHeight: .infinity)
-  }
-}
+  @Environment(AppModel.self) private var model
+  @Environment(\.accessibilityReduceMotion) private var systemReduceMotion
 
-#Preview {
-  RootView()
+  var body: some View {
+    let router = model.router
+    ZStack {
+      content(router: router)
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("screen.\(router.screen.rawValue)")
+        .id(router.screen)
+        .transition(model.effectiveReduceMotion(system: systemReduceMotion) ? .identity : .opacity)
+    }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .background(model.theme.night)
+    .allInTheme(model.theme)
+    .onAppear { router.reduceMotion = model.effectiveReduceMotion(system: systemReduceMotion) }
+    .onChange(of: systemReduceMotion) { router.reduceMotion = model.effectiveReduceMotion(system: $1) }
+  }
+
+  @ViewBuilder
+  private func content(router: AppRouter) -> some View {
+    switch router.screen {
+    case .menu: MainMenuView()
+    case .lobby: LobbyView()
+    case .table:
+      let setup = router.tableSetup ?? .demo(seed: model.newSessionSeed())
+      TableScreen(setup: setup).id(setup)
+    default: PlaceholderScreen(screen: router.screen)
+    }
+  }
 }
