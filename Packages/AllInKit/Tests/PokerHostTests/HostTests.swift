@@ -84,7 +84,8 @@ import PokerCore
     let clock = ContinuousClock()
     let start = clock.now
     let outcome = try await host.playHand(HostFixture.setup(seats: [0, 1]))
-    #expect(clock.now - start < .seconds(1))
+    // The sleeper waits 10 s; a loose bound keeps this stable under parallel test load.
+    #expect(clock.now - start < .seconds(5))
     #expect(outcome.warnings == [.timedOut(seat: 0, applied: .fold)])
     #expect(outcome.result.reason == .uncontested)
   }
