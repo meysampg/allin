@@ -25,7 +25,7 @@ enum Screen: String, CaseIterable, Hashable, Sendable {
 
   var isImplemented: Bool {
     switch self {
-    case .menu, .lobby, .table: true
+    case .menu, .lobby, .table, .review: true
     default: false
     }
   }

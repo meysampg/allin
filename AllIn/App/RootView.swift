@@ -29,6 +29,9 @@ struct RootView: View {
     case .table:
       let setup = router.tableSetup ?? .demo(seed: model.newSessionSeed())
       TableScreen(setup: setup).id(setup)
+    case .review:
+      let request = router.reviewRequest ?? .demo(seed: 7)
+      ReviewScreen(request: request, presentation: .standalone).id(request)
     default: PlaceholderScreen(screen: router.screen)
     }
   }

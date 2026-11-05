@@ -1,3 +1,4 @@
+import AllInStore
 import AllInUI
 import Foundation
 import OSLog
@@ -31,6 +32,9 @@ final class TableController {
   let coach: CoachController
   private(set) var lastOutcome: HandOutcome?
   private(set) var isMenuOpen = false
+  /// The newest hand that has finished on the table and been archived; "Last hand" reviews it.
+  private(set) var lastHandKey: ArchiveKey?
+  private(set) var isReviewOpen = false
 
   @ObservationIgnored private let model: AppModel
   @ObservationIgnored private let human: LocalHumanSeat
@@ -45,6 +49,8 @@ final class TableController {
   @ObservationIgnored private var eventTask: Task<Void, Never>?
   @ObservationIgnored private var nextHandSignal: AsyncStream<Void>.Continuation?
   @ObservationIgnored private var stopped = false
+  @ObservationIgnored private var recordedKey: ArchiveKey?
+  @ObservationIgnored private var shownEndOf: HandID?
 
   private static let log = Logger(subsystem: "app.allin", category: "TableController")
 
@@ -178,6 +184,17 @@ final class TableController {
     }
   }
 
+  /// Called with the archive key once a finished hand is saved. The hand becomes reviewable when the table has
+  /// finished showing it, so "Last hand" never spoils a hand still being played out.
+  func handRecorded(_ key: ArchiveKey) {
+    recordedKey = key
+    promoteLastHand()
+  }
+
+  private func promoteLastHand() {
+    if let recordedKey, recordedKey.handID == shownEndOf { lastHandKey = recordedKey }
+  }
+
   private func finishSession() {
     guard !stopped else { return }
     phase = .sessionOver
@@ -207,6 +224,8 @@ final class TableController {
         showCoachRange()
       }
     case .handEnded:
+      shownEndOf = event.handID
+      promoteLastHand()
       requestSeq = nil
       isRaiseMode = false
       phase = .handOver
@@ -218,7 +237,7 @@ final class TableController {
   // MARK: Hero actions
 
   private var legal: LegalActions? {
-    if case .yourTurn(let legal) = phase, !isMenuOpen { return legal }
+    if case .yourTurn(let legal) = phase, !isMenuOpen, !isReviewOpen { return legal }
     return nil
   }
 
@@ -288,7 +307,7 @@ final class TableController {
   }
 
   func nextHand() {
-    guard phase == .handOver, !isMenuOpen else { return }
+    guard phase == .handOver, !isMenuOpen, !isReviewOpen else { return }
     phase = .waiting
     nextHandSignal?.yield()
   }
@@ -326,7 +345,7 @@ final class TableController {
   }
 
   var canShowCoachRange: Bool {
-    if case .yourTurn = phase, !isMenuOpen { return coachFocusSeat != nil }
+    if case .yourTurn = phase, !isMenuOpen, !isReviewOpen { return coachFocusSeat != nil }
     return false
   }
 
@@ -362,8 +381,29 @@ final class TableController {
 
   // MARK: Menu
 
+  /// Escape: closes the review when it is open, otherwise toggles the table menu.
   func toggleMenu() {
-    isMenuOpen.toggle()
+    if isReviewOpen {
+      closeReview()
+    } else {
+      isMenuOpen.toggle()
+    }
+  }
+
+  // MARK: Review
+
+  func openLastHand() {
+    guard lastHandKey != nil, !isMenuOpen else { return }
+    coach.hideRange()
+    isReviewOpen = true
+  }
+
+  func closeReview() {
+    isReviewOpen = false
+  }
+
+  func toggleLastHand() {
+    if isReviewOpen { closeReview() } else { openLastHand() }
   }
 
   func closeMenu() {
@@ -378,7 +418,8 @@ final class TableController {
   var actions: TableActions {
     var actions = TableActions()
     actions.tableMenu = { [weak self] in self?.toggleMenu() }
-    guard !isMenuOpen else { return actions }
+    if lastHandKey != nil, !isMenuOpen { actions.lastHand = { [weak self] in self?.toggleLastHand() } }
+    guard !isMenuOpen, !isReviewOpen else { return actions }
     actions.hint = { [weak self] in self?.hint() }
     actions.fold = { [weak self] in self?.fold() }
     actions.checkCall = { [weak self] in self?.checkCall() }

@@ -5,6 +5,7 @@ import SwiftUI
 final class AppRouter {
   private(set) var screen: Screen
   private(set) var tableSetup: TableSetup?
+  private(set) var reviewRequest: ReviewRequest?
   /// Set by the app model; transitions are not animated when true.
   var reduceMotion = false
 
@@ -20,6 +21,13 @@ final class AppRouter {
     change {
       self.tableSetup = setup
       self.screen = .table
+    }
+  }
+
+  func openReview(_ request: ReviewRequest) {
+    change {
+      self.reviewRequest = request
+      self.screen = .review
     }
   }
 

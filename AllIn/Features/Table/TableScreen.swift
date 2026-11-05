@@ -1,3 +1,4 @@
+import AllInStore
 import AllInUI
 import SwiftUI
 
@@ -7,6 +8,7 @@ struct TableScreen: View {
   @Environment(\.theme) private var theme
   @Environment(\.accessibilityReduceMotion) private var systemReduceMotion
   @State private var controller: TableController?
+  @State private var sessionID: UUID?
 
   init(setup: TableSetup) {
     self.setup = setup
@@ -23,9 +25,20 @@ struct TableScreen: View {
       guard controller == nil else { return }
       let created = TableController(setup: setup, model: model, systemReduceMotion: systemReduceMotion)
       controller = created
+      let id = model.analysis.beginSession(setup: setup)
+      sessionID = id
+      let analysis = model.analysis
+      let setup = setup
+      created.onHandFinished = { [weak created] outcome in
+        created?.handRecorded(analysis.record(outcome, setup: setup, sessionID: id))
+      }
       created.start()
     }
-    .onDisappear { controller?.stop() }
+    .onDisappear {
+      controller?.stop()
+      if let sessionID { model.analysis.endSession(sessionID) }
+      sessionID = nil
+    }
   }
 }
 
@@ -64,6 +77,12 @@ private struct TableContent: View {
       }
       if controller.isMenuOpen {
         TableMenuOverlay(controller: controller)
+      }
+      if controller.isReviewOpen, let key = controller.lastHandKey {
+        ReviewScreen(request: .archived(key), presentation: .overlay(onBack: controller.closeReview))
+          .id(key)
+          .accessibilityElement(children: .contain)
+          .accessibilityIdentifier("table.review")
       }
     }
     .aspectRatio(TableSceneAspect.ratio, contentMode: .fit)

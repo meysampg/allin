@@ -20,9 +20,9 @@ struct TableTopBar: View {
         .accessibilityIdentifier("table.coach")
       Tag("HUD: \(setup.hud.rawValue)")
         .accessibilityIdentifier("table.hud")
-      Button("Last hand ↺") {}
+      Button("Last hand ↺") { controller.openLastHand() }
         .buttonStyle(.fantasy(.small))
-        .disabled(true)
+        .disabled(controller.lastHandKey == nil)
         .accessibilityIdentifier("table.lastHand")
     }
     .padding(.horizontal, 12)
