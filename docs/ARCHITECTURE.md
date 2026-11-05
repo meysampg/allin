@@ -63,3 +63,22 @@ The engine modules (PokerCore, PokerEquity, PokerHost, PokerAI, PokerAnalysis, C
 - `AnimationQueue` in `.spriteKit` mode starts each SKAction and waits for its duration with `Task.sleep` instead of awaiting the action, so a paused or hidden scene cannot hang the queue.
 - `SeatLayout` uses hand-placed bet spots for 2, 6 and 9 seats, and the dealer shoe sits at the top right of the rail.
 - The UI tests and `Tools/screens.sh` need macOS Automation Mode enabled (`automationmodetool`) and Screen Recording permission for the terminal.
+
+## Where the code differs from PLAN.md (M4 and M5)
+
+- Personality bots scale their continuing ranges to bet size, and rollouts deal folded seats at random. Before this, shoving looked best almost everywhere.
+- `DecisionGrader` widens its "good" band by the rollout's standard error. Grades at low rollout budgets are otherwise noise.
+- The default EV budget is 400 rollouts per candidate, with real policies for two streets and then check-down. `EVBudget.thorough` is PLAN's 4,000.
+- SwiftData models are named `*Entity`, since `HandRecord` clashes with PokerCore. A hand's analysis is stored as a JSON blob.
+- Hand review opens as an overlay on the table, so the session survives.
+- Content adds `realm.json` and an `outs` evaluation method, and unknown JSON keys are errors. Until `Content/realm.json` exists (M6), the app runs the fixture pack in `Content/fixtures/sample`.
+- EV templates validate on 100 instances (tool) and 2 (debug tests), not 500.
+
+## Known issues (open)
+
+- The last full UI run predates the final test fixes. `ExplainSandboxTests` and `LessonPlayTests.testPlayFixtureLessonEndToEnd` were failing, and `LaunchTests` failed once. A possible app crash in the sandbox tests is not understood. UI tests need an idle Mac.
+- `Tools/test.sh unit` takes well over the 2-minute target, because Curriculum EV evaluation is slow in debug.
+- Two Heavy timing tests (`sixWayMonteCarloTiming`, `streamFirstValueTiming`) failed under machine load and have not been re-run on an idle machine.
+- `policyEV` on the `value-river` fixture makes betting best in nearly all spots, so check when only better hands call is barely taught. It may be over-valuing bets. Review before authoring M6 content.
+- In the demo hand, preflop all-in still has the highest EV at the `.demo` budget (96 rollouts), though it grades correctly.
+- The range panel covers the left seat at the 6-max table.

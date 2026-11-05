@@ -8,7 +8,9 @@ An offline macOS app for learning Texas Hold'em from the ground up and playing i
 - Character opponents with distinct play styles
 - Stylized, game-like UI with rich animation
 
-Status: M3 done (first playable build: theme system, animated fantasy table, main menu, Quick Play lobby; cash 6-max and heads-up against the bots). Next: M4 (analysis, coach panel, hand review, persistence). UI approved (`design/wireframes/`), implementation plan in [`docs/PLAN.md`](docs/PLAN.md). Theme: cozy high fantasy.
+![All-In: a 6-max table with the coach's questions and a live read of an opponent's range](docs/screenshot.png)
+
+Status: M0–M5 done: the animated fantasy table, cash 6-max and heads-up against the bots, a coach panel with live range reads, graded hand review, saved progress, and the lesson engine (career map, lesson player, sandbox), which runs on a small sample pack for now. Next: M6 (the real Village Tavern lessons, Training Gym, boss and exam), then M7 (the Arena, remaining screens, polish). Some UI tests still fail; see `docs/ARCHITECTURE.md`. UI approved (`design/wireframes/`), implementation plan in [`docs/PLAN.md`](docs/PLAN.md). Theme: cozy high fantasy.
 
 ## Build and run
 
