@@ -23,6 +23,8 @@ if have_pkg; then
     echo "==> theme validate"
     "$(swift build --package-path "$PKG" --show-bin-path)/allin-tool" theme validate Themes
   fi
+  echo "==> content validate --quick"
+  "$(swift build --package-path "$PKG" --show-bin-path)/allin-tool" content validate --quick
 else
   skip "$PKG/Package.swift not found; package not built"
 fi

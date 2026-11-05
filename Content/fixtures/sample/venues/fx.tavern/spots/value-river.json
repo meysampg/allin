@@ -15,11 +15,8 @@
     "position": "BTN",
     "hand": {
       "madeHand": [
-        "topPair",
-        "overpair",
-        "twoPair",
-        "middlePair",
-        "noPair"
+        "bottomPair",
+        "underPair"
       ]
     }
   },
@@ -49,10 +46,10 @@
     "method": "policyEV"
   },
   "quality": {
-    "minGapBB": 0.3,
+    "minGapBB": 0.05,
     "answerBalance": {
       "check": [
-        0.3,
+        0.1,
         0.7
       ]
     }

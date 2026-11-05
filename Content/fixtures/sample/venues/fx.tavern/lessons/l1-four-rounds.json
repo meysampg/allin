@@ -14,7 +14,7 @@
     {
       "kind": "puzzle",
       "spot": "fx.rules.call-cost",
-      "coach": "Look at the biggest bet on the table. {hero} has already put in {heroInvested}."
+      "coach": "Look at the biggest bet on the table, {bet}, and subtract what {hero} already put in."
     },
     {
       "kind": "explain",

@@ -20,7 +20,7 @@ if ! have_xcodeproj || [ ! -f AllIn/App/DebugLaunch.swift ]; then
   exit 0
 fi
 
-DEFAULT="menu career venue lesson lobby table review boss result tournament gym rivals mygame settings arena"
+DEFAULT="menu career venue lesson lesson:3 lobby table review boss result tournament gym rivals mygame settings arena"
 SCREENS=("$@")
 [ ${#SCREENS[@]} -gt 0 ] || read -r -a SCREENS <<<"${SCREENS_ENV:-${SCREENS:-$DEFAULT}}"
 
