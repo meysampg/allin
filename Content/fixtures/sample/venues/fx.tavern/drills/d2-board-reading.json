@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.tavern.d2.board-reading",
+  "title": "Board reading gym",
+  "skills": [
+    "board.nuts",
+    "board.what-beats-me",
+    "math.outs",
+    "money.legal-sizes",
+    "push.fold",
+    "ranges.open"
+  ],
+  "spots": [
+    {
+      "template": "fx.board.find-nuts",
+      "weight": 1
+    },
+    {
+      "template": "fx.board.nut-class",
+      "weight": 1
+    },
+    {
+      "template": "fx.board.what-beats-me",
+      "weight": 1
+    },
+    {
+      "template": "fx.outs.count",
+      "weight": 1
+    },
+    {
+      "template": "fx.money.min-raise",
+      "weight": 1
+    },
+    {
+      "template": "fx.push.sb-shove",
+      "weight": 1
+    },
+    {
+      "template": "fx.ranges.paint-open",
+      "weight": 1
+    }
+  ],
+  "reps": 12,
+  "timerSeconds": 20,
+  "gym": true
+}

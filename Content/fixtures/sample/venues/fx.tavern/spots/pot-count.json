@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.money.pot-count",
+  "skill": "money.pot-count",
+  "difficulty": 0.3,
+  "table": {
+    "players": 3,
+    "stacksBB": [
+      60,
+      120
+    ],
+    "blinds": "1/2"
+  },
+  "line": {
+    "random": {
+      "actions": [
+        3,
+        7
+      ]
+    },
+    "stopAt": "hero"
+  },
+  "board": {
+    "street": "turn"
+  },
+  "question": {
+    "type": "number",
+    "tolerance": 0
+  },
+  "evaluation": {
+    "method": "potCount"
+  },
+  "prompt": "How many chips are in the pot?",
+  "hint": "Add up everything every player has put in so far.",
+  "variation": [
+    "seats",
+    "stacks"
+  ]
+}

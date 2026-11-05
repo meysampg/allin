@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.tavern.l1.four-rounds",
+  "title": "The four betting rounds",
+  "skills": [
+    "rules.flow",
+    "money.pot-count"
+  ],
+  "steps": [
+    {
+      "kind": "hook",
+      "spot": "fx.rules.next-to-act"
+    },
+    {
+      "kind": "puzzle",
+      "spot": "fx.rules.call-cost",
+      "coach": "Look at the biggest bet on the table. {hero} has already put in {heroInvested}."
+    },
+    {
+      "kind": "explain",
+      "title": "Four rounds, one pot",
+      "explainers": [
+        "bettingRoundsTimeline",
+        "potCounter"
+      ],
+      "thinking": "Every round starts with the player left of the button, and the pot only ever grows."
+    },
+    {
+      "kind": "apply",
+      "spot": "fx.money.pot-count",
+      "count": 3,
+      "freshSeeds": true
+    }
+  ],
+  "stars": {
+    "hintCost": 1,
+    "three": {
+      "puzzleGood": true,
+      "applyGood": 3
+    },
+    "two": {
+      "applyGood": 2
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.tavern.d1.which-wins",
+  "title": "Which hand wins?",
+  "skills": [
+    "ranks.compare"
+  ],
+  "spots": [
+    {
+      "template": "fx.ranks.pick-winner",
+      "weight": 1
+    }
+  ],
+  "reps": 10,
+  "timerSeconds": 8,
+  "gym": true
+}

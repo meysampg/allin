@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.ranks.best-five",
+  "skill": "ranks.best5",
+  "difficulty": 0.25,
+  "table": {
+    "players": 2,
+    "stacksBB": [
+      40,
+      100
+    ],
+    "blinds": "1/2"
+  },
+  "hero": {
+    "hand": {
+      "categories": [
+        "pair",
+        "twoPair",
+        "trips",
+        "straight",
+        "flush"
+      ]
+    }
+  },
+  "line": "checkThrough",
+  "board": {
+    "street": "river"
+  },
+  "question": {
+    "type": "pickCards",
+    "pick": 5
+  },
+  "evaluation": {
+    "method": "bestFive"
+  },
+  "prompt": "Pick the five cards that make your best hand.",
+  "hint": "You may use both, one or none of your own cards.",
+  "explain": [
+    {
+      "explainer": "bestFiveHighlight"
+    }
+  ],
+  "variation": [
+    "suits"
+  ]
+}

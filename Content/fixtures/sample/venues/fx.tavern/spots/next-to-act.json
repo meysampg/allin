@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.rules.next-to-act",
+  "skill": "rules.flow",
+  "difficulty": 0.2,
+  "table": {
+    "players": 6,
+    "stacksBB": [
+      80,
+      120
+    ],
+    "blinds": "1/2"
+  },
+  "hero": {
+    "position": "BTN"
+  },
+  "line": {
+    "random": {
+      "actions": [
+        1,
+        9
+      ]
+    },
+    "stopAt": "any"
+  },
+  "board": {
+    "street": "flop"
+  },
+  "question": {
+    "type": "choice"
+  },
+  "evaluation": {
+    "method": "nextToAct"
+  },
+  "prompt": "The {street} is out. Who acts next?",
+  "variation": [
+    "seats",
+    "stacks"
+  ]
+}

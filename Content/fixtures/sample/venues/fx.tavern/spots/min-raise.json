@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.money.min-raise",
+  "skill": "money.legal-sizes",
+  "difficulty": 0.4,
+  "table": {
+    "players": 3,
+    "stacksBB": [
+      60,
+      120
+    ],
+    "blinds": "1/2"
+  },
+  "line": {
+    "random": {
+      "actions": [
+        2,
+        5
+      ]
+    },
+    "stopAt": "hero"
+  },
+  "board": {
+    "street": "flop"
+  },
+  "situation": {
+    "facingBet": true
+  },
+  "question": {
+    "type": "sizeChoice"
+  },
+  "evaluation": {
+    "method": "legalSizes",
+    "ask": "minRaise"
+  },
+  "prompt": "What is the smallest legal raise?",
+  "hint": "A raise must be at least as big as the last bet or raise.",
+  "variation": [
+    "seats",
+    "stacks"
+  ]
+}

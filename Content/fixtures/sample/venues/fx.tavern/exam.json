@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.tavern.exam",
+  "title": "Tavern exam",
+  "count": 12,
+  "pass": 10,
+  "draw": [
+    {
+      "template": "fx.rules.next-to-act",
+      "count": 1
+    },
+    {
+      "template": "fx.rules.call-cost",
+      "count": 2
+    },
+    {
+      "template": "fx.money.pot-count",
+      "count": 1
+    },
+    {
+      "template": "fx.ranks.pick-winner",
+      "count": 2
+    },
+    {
+      "template": "fx.ranks.best-five",
+      "count": 1
+    },
+    {
+      "template": "fx.board.find-nuts",
+      "count": 1
+    },
+    {
+      "template": "fx.board.what-beats-me",
+      "count": 2
+    },
+    {
+      "template": "fx.potodds.flush-draw",
+      "count": 2
+    }
+  ]
+}

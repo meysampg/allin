@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.ranges.paint-open",
+  "skill": "ranges.open",
+  "difficulty": 0.55,
+  "table": {
+    "players": 6,
+    "stacksBB": [
+      80,
+      120
+    ],
+    "blinds": "1/2"
+  },
+  "hero": {
+    "position": "BTN"
+  },
+  "villain": {
+    "character": "vexa",
+    "position": "CO"
+  },
+  "line": {
+    "stopAt": "villain"
+  },
+  "board": {
+    "street": "preflop"
+  },
+  "question": {
+    "type": "rangePaint"
+  },
+  "evaluation": {
+    "method": "rangeMatch",
+    "target": "policy"
+  },
+  "prompt": "Paint the hands {villain} opens from the cutoff.",
+  "variation": [
+    "seats"
+  ]
+}

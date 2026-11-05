@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.outs.count",
+  "skill": "math.outs",
+  "difficulty": 0.4,
+  "table": {
+    "players": 2,
+    "stacksBB": [
+      40,
+      100
+    ],
+    "blinds": "1/2"
+  },
+  "hero": {
+    "hand": {
+      "draws": [
+        "flushDraw",
+        "openEnded"
+      ],
+      "outs": [
+        4,
+        15
+      ]
+    }
+  },
+  "line": "checkThrough",
+  "board": {
+    "street": "turn"
+  },
+  "question": {
+    "type": "number",
+    "tolerance": 1
+  },
+  "evaluation": {
+    "method": "outs"
+  },
+  "prompt": "How many cards improve you to a straight or better?",
+  "hint": "Count only the cards you have not seen.",
+  "explain": [
+    {
+      "explainer": "outsGlow"
+    }
+  ],
+  "variation": [
+    "suits"
+  ]
+}

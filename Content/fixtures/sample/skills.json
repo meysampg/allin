@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "axes": [
+    {
+      "id": "rules",
+      "name": "Rules"
+    },
+    {
+      "id": "position",
+      "name": "Position"
+    },
+    {
+      "id": "math",
+      "name": "Math"
+    },
+    {
+      "id": "ranges",
+      "name": "Ranges"
+    },
+    {
+      "id": "sizing",
+      "name": "Bet sizing"
+    },
+    {
+      "id": "reading",
+      "name": "Reading players"
+    },
+    {
+      "id": "tournaments",
+      "name": "Tournaments"
+    },
+    {
+      "id": "mental",
+      "name": "Mental game"
+    }
+  ],
+  "skills": [
+    {
+      "id": "rules.flow",
+      "name": "Betting rounds and turn order",
+      "axes": {
+        "rules": 1.0
+      },
+      "baseDifficulty": 0.2
+    },
+    {
+      "id": "rules.actions",
+      "name": "Legal actions and costs",
+      "axes": {
+        "rules": 1.0
+      },
+      "baseDifficulty": 0.25
+    },
+    {
+      "id": "money.pot-count",
+      "name": "Counting the pot",
+      "axes": {
+        "rules": 0.4,
+        "math": 0.6
+      },
+      "baseDifficulty": 0.3
+    },
+    {
+      "id": "money.legal-sizes",
+      "name": "Legal bet sizes",
+      "axes": {
+        "rules": 0.5,
+        "sizing": 0.5
+      },
+      "baseDifficulty": 0.35
+    },
+    {
+      "id": "ranks.best5",
+      "name": "Best five cards",
+      "axes": {
+        "rules": 1.0
+      },
+      "baseDifficulty": 0.25
+    },
+    {
+      "id": "ranks.compare",
+      "name": "Comparing hands",
+      "axes": {
+        "rules": 1.0
+      },
+      "baseDifficulty": 0.3
+    },
+    {
+      "id": "board.nuts",
+      "name": "Finding the nuts",
+      "axes": {
+        "reading": 0.5,
+        "ranges": 0.5
+      },
+      "baseDifficulty": 0.45
+    },
+    {
+      "id": "board.what-beats-me",
+      "name": "What beats me",
+      "axes": {
+        "reading": 0.6,
+        "ranges": 0.4
+      },
+      "baseDifficulty": 0.5
+    },
+    {
+      "id": "math.outs",
+      "name": "Counting outs",
+      "axes": {
+        "math": 1.0
+      },
+      "baseDifficulty": 0.4
+    },
+    {
+      "id": "math.pot-odds",
+      "name": "Pot odds",
+      "axes": {
+        "math": 1.0
+      },
+      "baseDifficulty": 0.4
+    },
+    {
+      "id": "value.bet-or-check",
+      "name": "Bet or check for value",
+      "axes": {
+        "sizing": 0.5,
+        "ranges": 0.5
+      },
+      "baseDifficulty": 0.35
+    },
+    {
+      "id": "reading.bet-means-strength",
+      "name": "A bet shows strength",
+      "axes": {
+        "reading": 1.0
+      },
+      "baseDifficulty": 0.4
+    },
+    {
+      "id": "push.fold",
+      "name": "Push or fold",
+      "axes": {
+        "math": 0.5,
+        "tournaments": 0.5
+      },
+      "baseDifficulty": 0.5
+    },
+    {
+      "id": "ranges.open",
+      "name": "Opening ranges",
+      "axes": {
+        "ranges": 0.7,
+        "position": 0.3
+      },
+      "baseDifficulty": 0.55
+    }
+  ]
+}

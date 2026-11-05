@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.tavern.boss",
+  "character": "bram",
+  "title": "Bram Ironmug, Tavern Champion",
+  "quote": "I only bet when I've got it. Everyone knows that.",
+  "format": "headsUp",
+  "hands": 30,
+  "blinds": "1/2",
+  "stackBB": 100,
+  "coach": false,
+  "minDecisions": 15,
+  "minScore": 65,
+  "requirements": [
+    "Decision score 65 or more over 30 hands",
+    "Pass the exam: 10 of 12"
+  ],
+  "exam": "fx.tavern.exam",
+  "stars": {
+    "two": {
+      "score": 75,
+      "exam": 11
+    },
+    "three": {
+      "score": 85,
+      "exam": 12
+    }
+  }
+}

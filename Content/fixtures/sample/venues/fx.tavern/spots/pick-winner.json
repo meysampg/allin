@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.ranks.pick-winner",
+  "skill": "ranks.compare",
+  "difficulty": 0.3,
+  "table": {
+    "players": 3,
+    "stacksBB": [
+      40,
+      100
+    ],
+    "blinds": "1/2"
+  },
+  "line": "checkThrough",
+  "board": {
+    "street": "river"
+  },
+  "question": {
+    "type": "pickWinner"
+  },
+  "evaluation": {
+    "method": "showdownWinner"
+  },
+  "prompt": "Showdown! Who wins the pot?",
+  "hint": "Find each player's best five cards, then compare the hand categories.",
+  "explain": [
+    {
+      "explainer": "handRankLadder"
+    }
+  ],
+  "variation": [
+    "suits",
+    "seats"
+  ],
+  "reveal": "all"
+}

@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.tavern.l5.worse-calls",
+  "title": "Bet only when worse hands call",
+  "skills": [
+    "value.bet-or-check",
+    "reading.bet-means-strength"
+  ],
+  "steps": [
+    {
+      "kind": "hook",
+      "spot": "fx.value.river-bet-or-check"
+    },
+    {
+      "kind": "puzzle",
+      "spot": "fx.value.river-bet-or-check",
+      "coach": "Who would call you here?"
+    },
+    {
+      "kind": "explain",
+      "title": "Who calls a bet?",
+      "explainers": [
+        {
+          "explainer": "whoCallsMe",
+          "bind": {
+            "mode": "callers",
+            "size": "bet:0.5"
+          },
+          "caption": "Hands that call a half-pot bet"
+        }
+      ],
+      "thinking": "A value bet needs worse hands that call. If only better hands call, check."
+    },
+    {
+      "kind": "sandbox",
+      "title": "Alchemist's Bench: who calls?",
+      "controls": [
+        "heroCards",
+        "board"
+      ],
+      "meters": [
+        "worseThatCall",
+        "betterThatCall"
+      ],
+      "challenge": "Find a hand where every caller beats you."
+    },
+    {
+      "kind": "apply",
+      "spot": "fx.value.river-bet-or-check",
+      "count": 3,
+      "freshSeeds": true
+    }
+  ],
+  "stars": {
+    "hintCost": 1,
+    "three": {
+      "puzzleGood": true,
+      "applyGood": 3
+    },
+    "two": {
+      "applyGood": 2
+    }
+  }
+}

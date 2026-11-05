@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.tavern.l2.five-cards",
+  "title": "Five cards make a hand",
+  "skills": [
+    "ranks.best5",
+    "ranks.compare"
+  ],
+  "steps": [
+    {
+      "kind": "hook",
+      "spot": "fx.ranks.pick-winner"
+    },
+    {
+      "kind": "puzzle",
+      "spot": "fx.ranks.best-five"
+    },
+    {
+      "kind": "explain",
+      "title": "Seven cards, five count",
+      "explainers": [
+        "handRankLadder",
+        "bestFiveHighlight"
+      ],
+      "thinking": "You choose the best five of your seven cards. The ladder says which hand category beats which."
+    },
+    {
+      "kind": "sandbox",
+      "title": "Alchemist's Bench: build a hand",
+      "controls": [
+        "heroCards",
+        "board"
+      ],
+      "meters": [
+        "bestFive"
+      ],
+      "challenge": "Change the board until your best five stop using your own cards."
+    },
+    {
+      "kind": "apply",
+      "spot": "fx.ranks.pick-winner",
+      "count": 3,
+      "freshSeeds": true
+    }
+  ],
+  "stars": {
+    "hintCost": 1,
+    "three": {
+      "puzzleGood": true,
+      "applyGood": 3
+    },
+    "two": {
+      "applyGood": 2
+    }
+  }
+}

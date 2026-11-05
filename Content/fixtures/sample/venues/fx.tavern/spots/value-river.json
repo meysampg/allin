@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.value.river-bet-or-check",
+  "skill": "value.bet-or-check",
+  "difficulty": 0.35,
+  "table": {
+    "players": 2,
+    "stacksBB": [
+      40,
+      150
+    ],
+    "blinds": "1/2"
+  },
+  "hero": {
+    "position": "BTN",
+    "hand": {
+      "madeHand": [
+        "topPair",
+        "overpair",
+        "twoPair",
+        "middlePair",
+        "noPair"
+      ]
+    }
+  },
+  "villain": {
+    "character": "bram"
+  },
+  "line": "checkThrough",
+  "board": {
+    "street": "river",
+    "exclude": [
+      "monotone"
+    ]
+  },
+  "potBB": [
+    2,
+    24
+  ],
+  "question": {
+    "type": "action",
+    "options": [
+      "check",
+      "bet:0.5",
+      "bet:1.0"
+    ]
+  },
+  "evaluation": {
+    "method": "policyEV"
+  },
+  "quality": {
+    "minGapBB": 0.3,
+    "answerBalance": {
+      "check": [
+        0.3,
+        0.7
+      ]
+    }
+  },
+  "prompt": "{villain} checked to you on every street. You have {heroHandName}. Bet or check?",
+  "explain": [
+    {
+      "explainer": "whoCallsMe",
+      "bind": {
+        "mode": "callers",
+        "size": "bet:0.5"
+      }
+    }
+  ],
+  "variation": [
+    "suits",
+    "seats",
+    "stacks",
+    "villainName"
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.tavern",
+  "name": "Village Tavern",
+  "place": "The Gilded Tankard",
+  "chapter": "Chapter 1: learning the table",
+  "host": {
+    "name": "Marta the Innkeeper",
+    "line": "Pull up a stool, traveler.",
+    "artKey": "marta"
+  },
+  "meters": [
+    {
+      "id": "fx.tavern.rules",
+      "name": "Rules & flow",
+      "skills": [
+        "rules.flow",
+        "rules.actions",
+        "money.pot-count",
+        "money.legal-sizes"
+      ]
+    },
+    {
+      "id": "fx.tavern.ranks",
+      "name": "Hand ranks",
+      "skills": [
+        "ranks.best5",
+        "ranks.compare"
+      ]
+    },
+    {
+      "id": "fx.tavern.board",
+      "name": "Board reading",
+      "skills": [
+        "board.nuts",
+        "board.what-beats-me",
+        "math.outs"
+      ]
+    },
+    {
+      "id": "fx.tavern.value",
+      "name": "Pot odds & value",
+      "skills": [
+        "math.pot-odds",
+        "value.bet-or-check",
+        "reading.bet-means-strength"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "fx.tavern.n1",
+      "kind": "lesson",
+      "lesson": "fx.tavern.l1.four-rounds"
+    },
+    {
+      "id": "fx.tavern.n2",
+      "kind": "lesson",
+      "lesson": "fx.tavern.l2.five-cards"
+    },
+    {
+      "id": "fx.tavern.n3",
+      "kind": "drill",
+      "drill": "fx.tavern.d1.which-wins"
+    },
+    {
+      "id": "fx.tavern.n4",
+      "kind": "lesson",
+      "lesson": "fx.tavern.l4.pot-odds"
+    },
+    {
+      "id": "fx.tavern.n5",
+      "kind": "lesson",
+      "lesson": "fx.tavern.l5.worse-calls"
+    },
+    {
+      "id": "fx.tavern.n6",
+      "kind": "table",
+      "title": "Tavern night",
+      "table": {
+        "format": "cash6",
+        "opponents": [
+          "bram",
+          "patron",
+          "patron",
+          "patron",
+          "patron"
+        ],
+        "hands": 40,
+        "blinds": "1/2",
+        "stackBB": 100,
+        "coach": "questions"
+      }
+    },
+    {
+      "id": "fx.tavern.n7",
+      "kind": "boss",
+      "boss": "fx.tavern.boss",
+      "unlock": {
+        "after": [
+          "fx.tavern.n6"
+        ]
+      }
+    }
+  ]
+}

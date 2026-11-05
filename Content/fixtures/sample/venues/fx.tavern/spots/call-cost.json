@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.rules.call-cost",
+  "skill": "rules.actions",
+  "difficulty": 0.25,
+  "table": {
+    "players": 4,
+    "stacksBB": [
+      60,
+      120
+    ],
+    "blinds": "1/2"
+  },
+  "line": {
+    "random": {
+      "actions": [
+        2,
+        6
+      ]
+    },
+    "stopAt": "hero"
+  },
+  "board": {
+    "street": "flop"
+  },
+  "situation": {
+    "facingBet": true
+  },
+  "question": {
+    "type": "number",
+    "tolerance": 0
+  },
+  "evaluation": {
+    "method": "legalSizes",
+    "ask": "callCost"
+  },
+  "prompt": "How many chips does it cost you to call?",
+  "hint": "Call the biggest bet, minus what you already put in this round.",
+  "variation": [
+    "seats",
+    "stacks"
+  ]
+}

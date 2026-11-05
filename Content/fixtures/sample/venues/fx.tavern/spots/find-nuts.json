@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.board.find-nuts",
+  "skill": "board.nuts",
+  "difficulty": 0.45,
+  "table": {
+    "players": 2,
+    "stacksBB": [
+      40,
+      100
+    ],
+    "blinds": "1/2"
+  },
+  "line": "checkThrough",
+  "board": {
+    "street": "flop",
+    "exclude": [
+      "paired"
+    ]
+  },
+  "question": {
+    "type": "pickCards",
+    "pick": 2
+  },
+  "evaluation": {
+    "method": "nuts"
+  },
+  "prompt": "Which two cards make the best possible hand on this board?",
+  "hint": "Look for straights and flushes first.",
+  "explain": [
+    {
+      "explainer": "boardNutsScan"
+    }
+  ],
+  "variation": [
+    "suits"
+  ]
+}

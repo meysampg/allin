@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "venues": [
+    {
+      "id": "fx.tavern",
+      "name": "Village Tavern",
+      "icon": "village",
+      "status": "open",
+      "teaches": "rules, hand ranks, betting rounds, reading the board"
+    },
+    {
+      "id": "fx.guild",
+      "name": "Guild Hall",
+      "icon": "townHall",
+      "status": "comingSoon",
+      "teaches": "position, starting hands, pot odds, outs, basic c-bets",
+      "unlock": {
+        "afterVenue": "fx.tavern"
+      },
+      "lockedText": "beat the Tavern boss"
+    },
+    {
+      "id": "fx.keep",
+      "name": "Royal Keep",
+      "icon": "castle",
+      "status": "comingSoon",
+      "teaches": "ranges, equity, bet sizing, multi-street plans, player types, tournaments & ICM",
+      "unlock": {
+        "afterVenue": "fx.guild"
+      }
+    },
+    {
+      "id": "fx.hoard",
+      "name": "Dragon's Hoard",
+      "icon": "cave",
+      "status": "comingSoon",
+      "teaches": "balance vs exploit, bluff ratios, deep stacks, final tables, mental game",
+      "unlock": {
+        "afterVenue": "fx.keep"
+      }
+    }
+  ]
+}

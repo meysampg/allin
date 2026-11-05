@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.board.what-beats-me",
+  "skill": "board.what-beats-me",
+  "difficulty": 0.5,
+  "table": {
+    "players": 2,
+    "stacksBB": [
+      40,
+      100
+    ],
+    "blinds": "1/2"
+  },
+  "hero": {
+    "hand": {
+      "madeHand": [
+        "topPair",
+        "overpair",
+        "twoPair",
+        "middlePair"
+      ]
+    }
+  },
+  "line": "checkThrough",
+  "board": {
+    "street": "flop"
+  },
+  "question": {
+    "type": "choice",
+    "options": [
+      "none",
+      "few",
+      "many"
+    ]
+  },
+  "evaluation": {
+    "method": "beatsMeCount"
+  },
+  "prompt": "How many hands beat you?",
+  "hint": "Count the combos that make a better hand than yours.",
+  "explain": [
+    {
+      "explainer": "boardNutsScan"
+    }
+  ],
+  "variation": [
+    "suits",
+    "seats"
+  ]
+}

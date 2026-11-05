@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.board.nut-class",
+  "skill": "board.nuts",
+  "difficulty": 0.5,
+  "table": {
+    "players": 2,
+    "stacksBB": [
+      40,
+      100
+    ],
+    "blinds": "1/2"
+  },
+  "line": "checkThrough",
+  "board": {
+    "street": "turn"
+  },
+  "question": {
+    "type": "pickHandClass",
+    "options": [
+      "pair",
+      "twoPair",
+      "trips",
+      "straight",
+      "flush",
+      "fullHouse",
+      "quads",
+      "straightFlush"
+    ]
+  },
+  "evaluation": {
+    "method": "nuts"
+  },
+  "prompt": "What kind of hand is the nuts on this board?",
+  "explain": [
+    {
+      "explainer": "boardNutsScan"
+    }
+  ],
+  "variation": [
+    "suits"
+  ]
+}

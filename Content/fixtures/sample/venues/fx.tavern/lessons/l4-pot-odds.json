@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.tavern.l4.pot-odds",
+  "title": "Pot odds: is the call worth it?",
+  "skills": [
+    "math.pot-odds"
+  ],
+  "steps": [
+    {
+      "kind": "hook",
+      "spot": "fx.potodds.obvious"
+    },
+    {
+      "kind": "puzzle",
+      "spot": "fx.potodds.flush-draw",
+      "coach": "You have {heroHandName}. {villain} bets {bet} into {potBeforeBet}. You need to put in {toCall} to win {potIfCall}."
+    },
+    {
+      "kind": "explain",
+      "title": "Why calling works here",
+      "explainers": [
+        "potSlices",
+        "outsGlow"
+      ],
+      "thinking": "Compare what you pay to what you can win, then ask how often you win."
+    },
+    {
+      "kind": "sandbox",
+      "title": "Alchemist's Bench: break it yourself",
+      "controls": [
+        "heroCards",
+        "board",
+        "villainBet"
+      ],
+      "meters": [
+        "priceNeeded",
+        "yourChance"
+      ],
+      "challenge": "Try making {villain} bet the whole pot. Watch the price bar pass your chance. When does folding become right?"
+    },
+    {
+      "kind": "apply",
+      "spot": "fx.potodds.flush-draw",
+      "count": 3,
+      "freshSeeds": true
+    }
+  ],
+  "stars": {
+    "hintCost": 1,
+    "three": {
+      "puzzleGood": true,
+      "applyGood": 3
+    },
+    "two": {
+      "applyGood": 2
+    }
+  }
+}

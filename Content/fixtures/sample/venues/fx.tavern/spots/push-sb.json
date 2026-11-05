@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.push.sb-shove",
+  "skill": "push.fold",
+  "difficulty": 0.5,
+  "table": {
+    "players": 2,
+    "stacksBB": [
+      8,
+      15
+    ],
+    "blinds": "1/2"
+  },
+  "hero": {
+    "position": "BTN"
+  },
+  "villain": {
+    "character": "bram",
+    "position": "BB"
+  },
+  "line": {
+    "stopAt": "hero"
+  },
+  "board": {
+    "street": "preflop"
+  },
+  "question": {
+    "type": "action",
+    "options": [
+      "fold",
+      "allin"
+    ]
+  },
+  "evaluation": {
+    "method": "pushFold"
+  },
+  "prompt": "You are the small blind with a short stack. Shove or fold?",
+  "variation": [
+    "stacks"
+  ]
+}

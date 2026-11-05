@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.potodds.obvious",
+  "skill": "math.pot-odds",
+  "difficulty": 0.2,
+  "table": {
+    "players": 2,
+    "stacksBB": [
+      60,
+      120
+    ],
+    "blinds": "5/10"
+  },
+  "hero": {
+    "position": "BB"
+  },
+  "villain": {
+    "character": "vexa",
+    "position": "BTN"
+  },
+  "fixed": {
+    "hero": "AhQh",
+    "board": "Kh9h4c"
+  },
+  "line": {
+    "preflop": [
+      "villain:open:2.5",
+      "hero:call"
+    ],
+    "flop": [
+      "hero:check",
+      "villain:bet:0.2-0.3"
+    ]
+  },
+  "board": {
+    "street": "flop"
+  },
+  "question": {
+    "type": "action",
+    "options": [
+      "fold",
+      "call",
+      "raise:3"
+    ]
+  },
+  "evaluation": {
+    "method": "closedFormEV",
+    "vsRange": "tracked"
+  },
+  "quality": {
+    "minGapBB": 0.2
+  },
+  "prompt": "{villain} makes a small bet. Is the call worth it?",
+  "hint": "You pay {toCall} to win {potIfCall}: you need {priceNeeded}.",
+  "explain": [
+    {
+      "explainer": "potSlices"
+    }
+  ],
+  "variation": [
+    "suits"
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "fx.reading.quiet-one-bets",
+  "skill": "reading.bet-means-strength",
+  "difficulty": 0.45,
+  "table": {
+    "players": 2,
+    "stacksBB": [
+      60,
+      120
+    ],
+    "blinds": "1/2"
+  },
+  "hero": {
+    "position": "BB",
+    "hand": {
+      "madeHand": [
+        "topPair",
+        "middlePair",
+        "bottomPair",
+        "overpair"
+      ]
+    }
+  },
+  "villain": {
+    "character": "bram",
+    "position": "BTN"
+  },
+  "line": {
+    "preflop": [
+      "villain:open:2.5",
+      "hero:call"
+    ],
+    "river": [
+      "hero:check",
+      "villain:bet:0.5-0.75"
+    ]
+  },
+  "board": {
+    "street": "river"
+  },
+  "question": {
+    "type": "action",
+    "options": [
+      "fold",
+      "call"
+    ]
+  },
+  "evaluation": {
+    "method": "policyEV"
+  },
+  "quality": {
+    "minGapBB": 0.3
+  },
+  "prompt": "{villain} never bluffs, and now bets the river. Fold or call?",
+  "hint": "Think about what hands {villain} bets with.",
+  "explain": [
+    {
+      "explainer": "whoCallsMe"
+    }
+  ],
+  "variation": [
+    "suits",
+    "villainName"
+  ]
+}
