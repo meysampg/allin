@@ -44,7 +44,7 @@ import Testing
 
   @Test func startingValuesMatchThePlan() throws {
     let grumli = try #require(try BotCharacter.loadAll(directory: directory).first { $0.id == "grumli" }?.params)
-    #expect(grumli.vpip == 0.55)
+    #expect(grumli.vpip == 0.57)
     #expect(grumli.stickiness == 0.90)
     #expect(grumli.sizing.openRaiseBB == 2.5)
   }
