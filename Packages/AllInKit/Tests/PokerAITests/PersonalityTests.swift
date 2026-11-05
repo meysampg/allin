@@ -160,6 +160,52 @@ import Testing
     #expect(stationCalls > rockCalls, "grumli \(stationCalls) vexa \(rockCalls)")
   }
 
+  /// Share of every third of the 1326 combos the strategy continues with (calls or raises) in `base`.
+  private func continueShare(_ strategy: PersonalityStrategy, in base: DecisionContext) -> Double {
+    let combos = Array(Combo.all.enumerated().filter { $0.offset % 3 == 0 }.map(\.element))
+    var played = 0.0
+    for combo in combos {
+      played += AIScript.playing(strategy.distribution(for: AIScript.withHole(base, combo.cards)))
+    }
+    return played / Double(combos.count)
+  }
+
+  @Test func callsFarLessAgainstAShoveThanAnOpen() {
+    // Seats 3, 4, 5 fold; the button (seat 0) opens; the small blind and the big blind respond.
+    let open: [Action] = [.fold, .fold, .fold, .raise(to: 300)]
+    let shove: [Action] = [.fold, .fold, .fold, .allIn]
+    for (id, strategy) in bots {
+      for (name, tail) in [("small blind", [Action]()), ("big blind", [.fold])] {
+        let vsOpen = continueShare(strategy, in: AIScript.context(actions: open + tail))
+        let vsShove = continueShare(strategy, in: AIScript.context(actions: shove + tail))
+        #expect(vsShove <= 0.12, "\(id) \(name) continues \(vsShove) against a 100bb shove")
+        #expect(vsShove < vsOpen, "\(id) \(name): shove \(vsShove) vs open \(vsOpen)")
+      }
+    }
+  }
+
+  @Test func stationFoldsWeakPairToRiverOverbetShove() {
+    func callShare(_ hole: String, bet: Int) -> Double {
+      let actions: [Action] = [.call, .check, .check, .check, .check, .check, .check, .bet(to: bet)]
+      let context = AIScript.context(seats: 2, actions: actions, hole: hole, board: "Qc Jd 5s 2h 8c")
+      return bot("grumli").distribution(for: context).probability(of: .call)
+    }
+    for hole in ["Ad 8h", "Kd 8s"] {
+      let shove = callShare(hole, bet: 10_000)
+      let twoThirds = callShare(hole, bet: 130)
+      #expect(shove <= 0.10, "\(hole) calls a shove \(shove)")
+      #expect(shove < twoThirds, "\(hole): shove \(shove) vs two-thirds \(twoThirds)")
+    }
+  }
+
+  @Test func randomNoiseNeverStacksOff() {
+    let context = AIScript.context(actions: [.fold, .fold, .fold, .allIn, .fold], hole: "7s 2h")
+    for (id, strategy) in bots {
+      let call = strategy.distribution(for: context).probability(of: .call)
+      #expect(call <= 0.01, "\(id) calls a shove with 72o \(call)")
+    }
+  }
+
   @Test func shortStacksNeverProduceIllegalActions() {
     for stack in [30, 100, 150, 600] {
       for actions in [[Action](), [.raise(to: 300)], [.allIn], [.call, .check]] {

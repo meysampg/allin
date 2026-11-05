@@ -7,8 +7,22 @@ extension PersonalityStrategy {
     let features = HandFeatures(hole: ctx.holeCards, board: ctx.board)
     var tables: [Int: BoardStrengthTable] = [:]
     let blur = 1 - params.readSkill
-    let ranges = spot.liveOpponents.map {
+    var ranges = spot.liveOpponents.map {
       PerceivedRange.estimate(of: $0, in: ctx, blur: blur, tables: &tables)
+    }
+    // A big bet narrows the bettor's perceived range to its strongest hands.
+    if ctx.legal.toCall > 0, let bettor = Self.currentBettor(ctx),
+      let i = spot.liveOpponents.firstIndex(of: bettor)
+    {
+      let ratio = Double(ctx.legal.toCall) / Double(max(ctx.pot - ctx.legal.toCall, 1))
+      let keepTop = min(1, 0.6 / max(ratio, 0.01))
+      if keepTop < 1 {
+        let percentiles = BoardStrengthTable(board: ctx.board).percentiles(in: ranges[i])
+        var weights = ranges[i].weights
+        let weak = Float(0.15 / max(1, ratio))
+        for k in 0..<weights.count where weights[k] > 0 && Double(percentiles[k]) > keepTop { weights[k] *= weak }
+        ranges[i] = HandRange(weights: weights)
+      }
     }
     let equity = EquityCalculator.heroEquity(
       hole: ctx.holeCards, vs: ranges, board: ctx.board, samples: 128, seed: StableSeed.of(ctx))
@@ -69,7 +83,9 @@ extension PersonalityStrategy {
     var pCall = min(max(0, soft(equity - need) - pRaiseValue), 1 - pRaise)
     var pFold = 1 - pRaise - pCall
     let made = features.bucket != .air && features.bucket != .draw
-    let moved = pFold * params.stickiness * (made || outs >= 4 ? 1 : 0.4)
+    // Stickiness only works at a cheap price: full up to half-pot, gone for shoves.
+    let price = min(max((0.45 - ctx.potOdds) / 0.2, 0), 1)
+    let moved = pFold * params.stickiness * price * (made || outs >= 4 ? 1 : 0.4)
     pCall += moved
     pFold -= moved
 
@@ -80,5 +96,16 @@ extension PersonalityStrategy {
     }
     policy.add(acts.call, pCall)
     policy.add(acts.foldOrCheck, pFold)
+  }
+}
+
+extension PersonalityStrategy {
+  /// The seat that has put the most chips in on the current street.
+  fileprivate static func currentBettor(_ ctx: DecisionContext) -> Int? {
+    var best: (seat: Int, committed: Int)?
+    for entry in ctx.history where entry.street == ctx.street {
+      if best == nil || entry.committedAfter > best!.committed { best = (entry.seat, entry.committedAfter) }
+    }
+    return best?.seat
   }
 }

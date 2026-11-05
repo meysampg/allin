@@ -80,17 +80,13 @@ struct RolloutPlan: Sendable {
       holes[seat] = combo.cards
       dead = dead.union(combo.mask)
     }
-    var spare = Card.all.makeIterator()
-    for seat in foldedSeats {
-      var cards: [Card] = []
-      while cards.count < 2, let card = spare.next() {
-        if dead.insert(card) { cards.append(card) }
-      }
-      guard cards.count == 2 else { throw EVError.invalidSpot("Not enough cards") }
-      holes[seat] = cards
-    }
+    // Folded seats get random cards too (never the lowest free ones, which would keep them off the board).
     var deck = Deck(removing: dead)
     deck.shuffle(using: &rng)
+    for seat in foldedSeats {
+      guard let cards = deck.deal(2) else { throw EVError.invalidSpot("Not enough cards") }
+      holes[seat] = cards
+    }
     guard
       let order = DeckLayout.deck(
         button: spot.start.button, seats: spot.start.seats.map(\.seat), burnsCards: spot.start.burnsCards,

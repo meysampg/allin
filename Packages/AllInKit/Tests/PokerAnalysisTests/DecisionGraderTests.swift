@@ -45,7 +45,7 @@ import Testing
     #expect(graded.toleranceBB == 0.15)
     #expect(graded.grade == .good)
     let worse = DecisionGrader.grade(
-      evs([(.check, 1.0), (.bet(to: 3), 0.5)]), chosen: .bet(to: 3), potBefore: 4, bigBlind: 2)
+      evs([(.check, 1.0), (.bet(to: 3), 0.2)]), chosen: .bet(to: 3), potBefore: 4, bigBlind: 2)
     #expect(worse.grade == .leak)
   }
 
@@ -80,4 +80,43 @@ import Testing
 
 private extension Double {
   var log2: Double { Foundation.log2(self) }
+
+  private func noisy(_ values: [(Action, Double, Double)]) -> ActionEVResult {
+    ActionEVResult(
+      candidates: values.map {
+        CandidateEV(
+          action: $0.0, label: "\($0.0)", shortLabel: "\($0.0)", evBB: $0.1, standardError: $0.2, samples: 100,
+          method: .rollout)
+      })
+  }
+
+  @Test func goodBandWidensWithSamplingError() {
+    // Pot 20 bb: base tolerance 0.4 bb. A loss of 1.5 bb is within 2 * sqrt(0.6^2 + 0.6^2) = 1.70 bb.
+    let result = noisy([(.check, 5.0, 0.6), (.bet(to: 20), 3.5, 0.6), (.allIn, 0.0, 0.6)])
+    let graded = DecisionGrader.grade(result, chosen: .bet(to: 20), potBefore: 40, bigBlind: 2)
+    #expect(abs(graded.toleranceBB - 2 * (0.72).squareRoot()) < 1e-12)
+    #expect(graded.grade == .good)
+    // Exact EVs keep the base band: the same loss is a miss.
+    let exact = DecisionGrader.grade(
+      noisy([(.check, 5.0, 0), (.bet(to: 20), 3.5, 0), (.allIn, 0.0, 0)]), chosen: .bet(to: 20), potBefore: 40,
+      bigBlind: 2)
+    #expect(exact.toleranceBB == 0.4)
+    #expect(exact.grade != .good)
+  }
+
+  @Test func errorBandDoesNotHideARealLeak() {
+    let result = noisy([(.check, 12.0, 0.3), (.allIn, 4.0, 0.3)])
+    let graded = DecisionGrader.grade(result, chosen: .allIn, potBefore: 40, bigBlind: 2)
+    #expect(graded.grade == .leak)
+  }
+
+  @Test func smallMissHasAHalfBigBlindFloor() {
+    // Pot 2 bb: 10% is 0.2 bb, so the floor of 0.5 bb applies: a 0.45 bb loss is a small miss, 0.7 a leak.
+    let small = DecisionGrader.grade(
+      noisy([(.check, 1.0, 0), (.bet(to: 3), 0.55, 0)]), chosen: .bet(to: 3), potBefore: 4, bigBlind: 2)
+    #expect(small.grade == .smallMiss)
+    let big = DecisionGrader.grade(
+      noisy([(.check, 1.0, 0), (.bet(to: 3), 0.3, 0)]), chosen: .bet(to: 3), potBefore: 4, bigBlind: 2)
+    #expect(big.grade == .leak)
+  }
 }

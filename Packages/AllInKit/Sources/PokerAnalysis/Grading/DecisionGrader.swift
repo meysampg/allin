@@ -10,6 +10,10 @@ public struct GradingTolerance: Codable, Sendable, Hashable {
   public var potShare = 0.02
   /// Losses up to this share of the pot are a small miss.
   public var smallMissPotShare = 0.10
+  /// Floor of the small-miss band, in big blinds.
+  public var minSmallMissBB = 0.5
+  /// The "good" band is widened to this many standard errors of the difference between best and chosen.
+  public var seMultiplier = 2.0
   /// The share of the pot at which `quality` reaches 0.
   public var qualityPotShare = 0.25
 
@@ -25,7 +29,7 @@ public struct GradedDecision: Codable, Sendable, Hashable {
   public let candidates: [CandidateEV]
   /// `max(0, best - chosen)` in big blinds.
   public let evLossBB: Double
-  /// `max(minBB, potShare * potBefore / BB)`.
+  /// `max(minBB, potShare * potBefore / BB)`, widened by the sampling error of the best and chosen EVs.
   public let toleranceBB: Double
   /// `second != nil && best - second < toleranceBB`.
   public let isClose: Bool
@@ -71,14 +75,18 @@ public enum DecisionGrader {
     let best = evs.best
     let second = ranked.count > 1 ? ranked[1] : nil
     let potBB = Double(potBefore) / Double(max(bigBlind, 1))
-    let tol = max(tolerance.minBB, tolerance.potShare * potBB)
+    let baseTol = max(tolerance.minBB, tolerance.potShare * potBB)
+    let noise =
+      tolerance.seMultiplier
+      * (chosenEV.standardError * chosenEV.standardError + best.standardError * best.standardError).squareRoot()
+    let tol = max(baseTol, noise)
     let loss = max(0, best.evBB - chosenEV.evBB)
     let isClose = second.map { best.evBB - $0.evBB < tol } ?? false
     let inTopTwo = ranked.prefix(2).contains { $0.action == chosenEV.action }
     let grade: Grade
     if loss <= tol || (isClose && inTopTwo) {
       grade = .good
-    } else if loss <= tolerance.smallMissPotShare * potBB {
+    } else if loss <= max(tolerance.smallMissPotShare * potBB, tolerance.minSmallMissBB) {
       grade = .smallMiss
     } else {
       grade = .leak

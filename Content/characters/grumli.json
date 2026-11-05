@@ -5,7 +5,7 @@
   "style": "calling station",
   "strategy": "personality",
   "params": {
-    "vpip": 0.55,
+    "vpip": 0.57,
     "pfrRatio": 0.15,
     "threeBet": 0.02,
     "foldTo3Bet": 0.3,

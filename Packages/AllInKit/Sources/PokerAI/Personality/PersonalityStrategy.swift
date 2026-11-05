@@ -72,8 +72,23 @@ public struct PersonalityStrategy: StrategyProvider {
     }
     for item in policy.items { add(item.action, item.weight / total * (1 - r)) }
     if r > 0 {
-      for entry in UniformRandomStrategy().distribution(for: context).entries {
-        add(entry.action, entry.probability * r)
+      // Noise never stacks off against a bet: only actions adding at most the pot (or 10bb) are kept.
+      let legal = context.legal
+      let cap = max(context.pot - legal.toCall, 10 * context.config.bigBlind)
+      func added(_ action: Action) -> Int {
+        switch action {
+        case .fold, .check: return 0
+        case .call: return legal.callAmount
+        case .allIn: return legal.stack
+        case .bet(let to), .raise(let to): return to - legal.committed
+        }
+      }
+      let noise = UniformRandomStrategy().distribution(for: context).entries.filter { added($0.action) <= cap }
+      let mass = noise.reduce(0.0) { $0 + $1.probability }
+      if mass > 0 {
+        for entry in noise { add(entry.action, entry.probability / mass * r) }
+      } else {
+        add(acts.foldOrCheck, r)
       }
     }
     // Dyadic weights summing to exactly 1: the distribution is then bit-identical on every call, whatever the

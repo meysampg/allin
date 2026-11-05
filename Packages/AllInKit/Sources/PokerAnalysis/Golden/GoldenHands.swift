@@ -28,9 +28,9 @@ public enum GoldenHands {
   /// River: Grumli checks, the hero bets ⅔ and is called.
   ///
   /// `expectedGrades` are the grades the review gives with the real roster, `BaselineStrategy` as the hero's
-  /// continuation and `EVBudget.demo` (pinned by `ReviewDemoGradeTests`). The wireframe's [good, good, leak, good]
-  /// cannot be reached by tuning cards or sizes: against these bots an all-in beats every smaller bet by 10 to
-  /// 45 bb at each of the four decisions, so all four are leaks.
+  /// continuation and `EVBudget.demo` (pinned by `ReviewDemoGradeTests`): [good, good, leak, good], the
+  /// wireframe's. The turn check gives up about 7 bb against a calling station; the other three choices are
+  /// within the sampling error of the best line.
   public static func reviewDemo() throws -> GoldenHand {
     let seats = [0, 1, 2, 3, 4, 5]
     let holes: [Int: [Card]] = [
@@ -83,6 +83,6 @@ public enum GoldenHands {
     return GoldenHand(
       name: "Hand #22: top pair, a missed turn bet", log: EventLog(handID: HandID(22), steps: steps), heroSeat: 0,
       characters: [1: "grumli", 2: "zib", 3: "vexa", 4: "mott", 5: "oryn"],
-      expectedGrades: [.leak, .leak, .leak, .leak])
+      expectedGrades: [.good, .good, .leak, .good])
   }
 }
