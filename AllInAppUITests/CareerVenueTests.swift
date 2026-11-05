@@ -89,7 +89,9 @@ final class CareerVenueTests: XCTestCase {
     XCTAssertTrue(play.waitForExistence(timeout: 10))
     play.click()
     XCTAssertTrue(element(app, "screen.lesson").waitForExistence(timeout: 10))
+    // The first spot is evaluated on launch; Debug builds are slow, and input is only handled once it is ready.
+    XCTAssertTrue(element(app, "lesson.option.call").waitForExistence(timeout: 60))
     element(app, "lesson.close").click()
-    XCTAssertTrue(element(app, "screen.venue").waitForExistence(timeout: 10))
+    XCTAssertTrue(element(app, "screen.venue").waitForExistence(timeout: 15))
   }
 }

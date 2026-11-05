@@ -23,3 +23,13 @@ extension XCUIApplication {
   if let value = element.value as? String, !value.isEmpty { return value }
   return element.label
 }
+
+/// Polls `condition` until it holds or `timeout` seconds pass. Debug builds are slow, so callers pass generous timeouts.
+@MainActor func waitUntil(timeout: TimeInterval, _ condition: () -> Bool) -> Bool {
+  let deadline = Date().addingTimeInterval(timeout)
+  while Date() < deadline {
+    if condition() { return true }
+    Thread.sleep(forTimeInterval: 0.25)
+  }
+  return condition()
+}

@@ -20,8 +20,9 @@ final class ExplainSandboxTests: XCTestCase {
     }
     let chance = element(app, "equityBars.chance")
     XCTAssertTrue(chance.waitForExistence(timeout: 5))
-    let predicate = NSPredicate { _, _ in text(of: chance).contains("%") }
-    wait(for: [XCTNSPredicateExpectation(predicate: predicate, object: nil)], timeout: 10)
+    XCTAssertTrue(
+      waitUntil(timeout: 60) { chance.exists && text(of: chance).contains("%") },
+      "equity chance never showed a percentage")
     XCTAssertTrue(text(of: element(app, "explain.next")).contains("Next: try 3 spots on your own"))
   }
 
@@ -36,9 +37,7 @@ final class ExplainSandboxTests: XCTestCase {
     let slider = element(app, "sandbox.bet")
     XCTAssertTrue(slider.waitForExistence(timeout: 5))
     slider.adjust(toNormalizedSliderPosition: 0.95)
-    let changed = NSPredicate { _, _ in text(of: price) != before }
-    wait(for: [XCTNSPredicateExpectation(predicate: changed, object: nil)], timeout: 5)
-    XCTAssertNotEqual(text(of: price), before)
+    XCTAssertTrue(waitUntil(timeout: 60) { price.exists && text(of: price) != before }, "price did not change")
   }
 
   @MainActor
