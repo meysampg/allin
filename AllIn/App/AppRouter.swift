@@ -6,6 +6,8 @@ final class AppRouter {
   private(set) var screen: Screen
   private(set) var tableSetup: TableSetup?
   private(set) var reviewRequest: ReviewRequest?
+  private(set) var venueID: String?
+  private(set) var lessonRequest: LessonRequest?
   /// Set by the app model; transitions are not animated when true.
   var reduceMotion = false
 
@@ -28,6 +30,34 @@ final class AppRouter {
     change {
       self.reviewRequest = request
       self.screen = .review
+    }
+  }
+
+  func openCareer() {
+    change { self.screen = .career }
+  }
+
+  func openVenue(_ id: String) {
+    change {
+      self.venueID = id
+      self.screen = .venue
+    }
+  }
+
+  func openLesson(_ request: LessonRequest) {
+    change {
+      self.lessonRequest = request
+      self.venueID = request.venueID
+      self.screen = .lesson
+    }
+  }
+
+  /// Back to the venue the lesson was played from.
+  func closeLesson() {
+    change {
+      if let id = self.lessonRequest?.venueID { self.venueID = id }
+      self.lessonRequest = nil
+      self.screen = .venue
     }
   }
 

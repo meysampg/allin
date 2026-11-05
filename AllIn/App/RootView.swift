@@ -25,6 +25,12 @@ struct RootView: View {
   private func content(router: AppRouter) -> some View {
     switch router.screen {
     case .menu: MainMenuView()
+    case .career: CareerMapScreen()
+    case .venue:
+      VenueScreen(venueID: router.venueID ?? model.curriculum.currentVenue()?.id ?? "")
+    case .lesson:
+      let request = router.lessonRequest ?? model.fallbackLessonRequest()
+      LessonScreen(request: request).id(request)
     case .lobby: LobbyView()
     case .table:
       let setup = router.tableSetup ?? .demo(seed: model.newSessionSeed())

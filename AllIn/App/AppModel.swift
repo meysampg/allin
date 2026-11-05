@@ -1,5 +1,6 @@
 import AllInStore
 import AllInUI
+import Curriculum
 import Foundation
 import OSLog
 import Observation
@@ -30,6 +31,7 @@ final class AppModel {
   let progress: ProgressStore
   let archive: HandArchive
   let analysis: HandAnalysisService
+  let curriculum: CurriculumService
 
   private static let settingsKey = "AllInSettings"
   private static let log = Logger(subsystem: "app.allin", category: "AppModel")
@@ -37,7 +39,8 @@ final class AppModel {
   init(launch: DebugLaunch) {
     self.launch = launch
     let startScreen: Screen = launch.isDemo ? (launch.screen ?? .menu) : .menu
-    router = AppRouter(initial: startScreen == .table || startScreen == .review ? .menu : startScreen)
+    let routedLater: Set<Screen> = [.table, .review, .venue, .lesson]
+    router = AppRouter(initial: routedLater.contains(startScreen) ? .menu : startScreen)
 
     var loaded = AppSettings()
     if !launch.isDemo, let data = UserDefaults.standard.data(forKey: Self.settingsKey),
@@ -74,10 +77,51 @@ final class AppModel {
     analysis = HandAnalysisService(
       archive: archive, progress: progress, charactersDirectory: content.appending(path: "characters"),
       characters: characters, budget: launch.fast || launch.isDemo ? .demo : .standard)
+    curriculum = CurriculumService(contentDirectory: content, progress: progress)
+    if launch.isDemo, let library = curriculum.library { DemoProgress.seed(progress, library: library) }
+    profile.careerProgress = curriculum.careerProgressText
+    curriculum.onChange = { [weak self] in
+      guard let self else { return }
+      self.profile.careerProgress = self.curriculum.careerProgressText
+    }
 
     router.reduceMotion = effectiveReduceMotion(system: false)
+    if launch.isDemo { routeDemoCurriculum() }
     if launch.isDemo, launch.screen == .review { router.openReview(.demo(seed: launch.seed ?? 7)) }
     if launch.isDemo, launch.screen == .table { router.startTable(.demo(seed: launch.seed ?? 7)) }
+  }
+
+  /// Demo routing for `-AllInScreen venue[:<venueID>]` and `lesson[:<step>]`.
+  private func routeDemoCurriculum() {
+    switch launch.screen {
+    case .venue:
+      if let id = launch.screenArgument ?? curriculum.currentVenue()?.id { router.openVenue(id) }
+    case .lesson:
+      router.openLesson(fallbackLessonRequest(startStep: Int(launch.screenArgument ?? "") ?? 2))
+    default:
+      break
+    }
+  }
+
+  /// A lesson request for the current node of the current venue (the first lesson node when that is not a lesson).
+  func fallbackLessonRequest(startStep: Int? = nil) -> LessonRequest {
+    let seed = launch.seed ?? 7
+    guard let library = curriculum.library,
+      let entry = curriculum.currentVenue() ?? library.realm.venues.first(where: { $0.status == .open }),
+      let venue = library.venue(entry.id)
+    else { return LessonRequest(venueID: "", nodeID: "", content: .lesson(""), seed: seed, startStep: startStep) }
+    func request(_ node: VenueNode) -> LessonRequest? {
+      if let id = node.lesson {
+        return LessonRequest(venueID: venue.id, nodeID: node.id, content: .lesson(id), seed: seed, startStep: startStep)
+      }
+      if let id = node.drill {
+        return LessonRequest(venueID: venue.id, nodeID: node.id, content: .drill(id), seed: seed, startStep: startStep)
+      }
+      return nil
+    }
+    if let node = curriculum.currentNode(in: venue), let found = request(node) { return found }
+    for node in venue.nodes { if let found = request(node) { return found } }
+    return LessonRequest(venueID: venue.id, nodeID: "", content: .lesson(""), seed: seed, startStep: startStep)
   }
 
   private static func makeContainer(inMemory: Bool) -> ModelContainer {
